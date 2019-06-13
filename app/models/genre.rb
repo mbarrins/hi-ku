@@ -5,7 +5,6 @@ class Genre < ApplicationRecord
   has_many :users, through: :user_genres
 
   def top_poems(no_of_poems)
-    #self.poems.order(no_of_likes: :desc)
-    self.poems.sort_by(&:custom_method)[0..4]
+    self.poems.mood.poems.joins(:likes).group(:id).order(Arel.sql('COUNT(likes.id) DESC')).limit(no_of_poems)
   end
 end

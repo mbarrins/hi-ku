@@ -10,4 +10,10 @@ class Poem < ApplicationRecord
   def no_of_likes
     self.likes.length
   end
+
+  def content
+    "#{self.line_1}
+    #{self.line_2}
+    #{self.line_3}"
+  end
 end
