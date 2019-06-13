@@ -6,4 +6,8 @@ class Poem < ApplicationRecord
   has_many :users, through: :likes
   has_many :comments
   has_many :users, through: :comments
+
+  def no_of_likes
+    self.likes.length
+  end
 end
