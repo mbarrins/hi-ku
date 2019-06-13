@@ -1,0 +1,5 @@
+<h1>Poems</h1>
+
+<% @poems.each do |poem| %>
+  <p><%= link_to poem.name, poem %></p>
+<% end %>
