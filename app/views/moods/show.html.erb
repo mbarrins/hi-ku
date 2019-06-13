@@ -1,6 +1,8 @@
 <h1><%= @mood.name %></h1>
 
+<% if !@mood.top_poems(5).empty? %>
 <h2>Poems</h2>
-<% @mood.top_poems.each do |poem| %>
+<% @mood.top_poems(5).each do |poem| %>
   <p><%= link_to poem.title, poem %></p>
+<% end %>
 <% end %>

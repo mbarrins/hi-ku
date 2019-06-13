@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+
 moods = [
   {name: 'Happy'},
   {name: 'Sad'},
@@ -30,8 +31,8 @@ end
 
 10.times{
   User.create(
-    first_name: FAKER::Name.first_name, 
-    last_name: FAKER::Name.last_name, 
+    first_name: Faker::Name.first_name, 
+    last_name: Faker::Name.last_name, 
     username: Faker::Internet.username, 
     email: Faker::Internet.email, 
     password: Faker::Internet.password(8,8)

@@ -1,6 +1,8 @@
 <h1><%= @genre.name %></h1>
 
+<% if !@genre.top_poems(5).empty? %>
 <h2>Poems</h2>
-<% @genre.top_poems.each do |poem| %>
+<% @genre.top_poems(5).each do |poem| %>
   <p><%= link_to poem.title, poem %></p>
+<% end %>
 <% end %>
