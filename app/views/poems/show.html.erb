@@ -5,7 +5,7 @@
 <p><%= @poem.line_3 %><p>
 
 <br/>
-<p>by <%= link_to @poem.user.full_name, @poem.user %>
+<p>by <%= link_to @poem.author.full_name, @poem.author %>
 <p>a <%= link_to @poem.genre.name, @poem.genre %> haiku for a
 <%= link_to @poem.mood.name, @poem.mood %> mood</p>
 
