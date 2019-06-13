@@ -13,6 +13,14 @@ class UsersController < ApplicationController
   end
 
   def create
+    @user = User.create(user_params)
+    if @user.valid?
+      redirect_to @user
+    else
+      flash.now[:errors] = @user.errors.full_messages
+      @genres = Genre.all
+      render new_heroine_path
+    end
   end
 
   def edit

@@ -16,6 +16,15 @@
     <%= link_to "New Poem", new_poem_path %>
     <%= link_to "All Genres", genres_path %>
     <%= link_to "All Moods", moods_path %>
+
+    <div style="color:red">
+    <% if !flash.now[:errors].nil? %>
+      <% flash.now[:errors].each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    <% end %>
+    </div>
+
     <%= yield %>
   </body>
 </html>
