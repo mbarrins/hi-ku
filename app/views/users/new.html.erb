@@ -11,7 +11,6 @@
   <%= f.text_field :email %>
   <%= f.label :password %>
   <%= f.text_field :password %>
-  <%= f.collection_select :genre_ids, @genres, :id, :name, 
-  { :selected => false }, { :multiple => true } %>
+  <%= f.collection_select :genre_ids, @genres, :id, :name, { :multiple => true } %>
   <%= f.submit %>
 <% end %>

@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :comments
   has_many :poems, through: :comments
   has_many :user_genres
-  has_many :genres, through :user_genres
+  has_many :genres, through: :user_genres
 
   def full_name
     "#{first_name} #{last_name}"
