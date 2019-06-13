@@ -1,11 +1,11 @@
 class Poem < ApplicationRecord
-  belongs_to :user
-  belongs_to :genre
-  belongs_to :mood
+  belongs_to :author, class_name: :User, foreign_key: :user_id, counter_cache: true
+  belongs_to :genre, counter_cache: true
+  belongs_to :mood, counter_cache: true
   has_many :likes
-  has_many :users, through: :likes
-  has_many :comments
-  has_many :users, through: :comments
+  has_many :users_who_liked, through: :likes, source: :user
+  has_many :comments  
+  has_many :users_who_commented, through: :comments, source: :user
 
   def no_of_likes
     self.likes.length

@@ -3,11 +3,12 @@ class User < ApplicationRecord
   has_many :genres, through: :poems
   has_many :moods, through: :poems
   has_many :likes
-  has_many :poems, through: :likes
+  has_many :liked_poems, through: :likes, source: :poem
   has_many :comments
-  has_many :poems, through: :comments
+  has_many :commented_poems, through: :comments, source: :poem
   has_many :user_genres
-  has_many :genres, through: :user_genres
+  has_many :selected_genres, through: :user_genres, source: :genre
+
   validates :username, uniqueness: true, presence: true
   validates :email, uniqueness: true, presence: true
   validates :first_name, presence: true

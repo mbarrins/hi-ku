@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_144830) do
 
   create_table "genres", force: :cascade do |t|
     t.string "name"
+    t.integer "poems_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_144830) do
 
   create_table "moods", force: :cascade do |t|
     t.string "name"
+    t.integer "poems_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -51,6 +53,8 @@ ActiveRecord::Schema.define(version: 2019_06_13_144830) do
     t.string "line_1"
     t.string "line_2"
     t.string "line_3"
+    t.integer "likes_count"
+    t.integer "comments_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["genre_id"], name: "index_poems_on_genre_id"
@@ -73,6 +77,9 @@ ActiveRecord::Schema.define(version: 2019_06_13_144830) do
     t.string "last_name"
     t.string "email"
     t.string "password"
+    t.integer "likes_count"
+    t.integer "comments_count"
+    t.integer "poems_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
