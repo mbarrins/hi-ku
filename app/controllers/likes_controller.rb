@@ -5,6 +5,10 @@ class LikesController < ApplicationController
     redirect_to session.delete(:return_to)
   end
 
+  def destroy
+    Like.find(params[:id]).destroy
+  end
+
   private
 
   def like_params
