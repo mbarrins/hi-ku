@@ -1,9 +1,9 @@
 <h1><%= @poem.title %></h1>
 
-  <p><%= @poem.content %><p>
+<p><%= @poem.content %><p>
 
-  <p>by <%= link_to @poem.user.full_name, @poem.user %>
+<p>by <%= link_to @poem.user.full_name, @poem.user %>
 
-  <%= link_to @poem.genre.name, @poem.genre %>
-  <%= link_to @poem.mood.name, @poem.mood %>
+<%= link_to @poem.genre.name, @poem.genre %>
+<%= link_to @poem.mood.name, @poem.mood %>
 
