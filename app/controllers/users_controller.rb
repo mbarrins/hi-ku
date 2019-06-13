@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @genres = Genre.all
   end
 
   def create
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
   private
 
   def users_params
-
+    params.require(:user).permit(:username, :first_name, :last_name, :email, :password)
   end
 
   def set_selection
