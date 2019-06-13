@@ -43,3 +43,35 @@ User.all.each do |user|
   UserGenre.create(user_id: user.id, genre_id: Genre.all.to_a.sample.id)
 end
 
+100.times do
+  quote = Faker::Quote.most_interesting_man_in_the_world.split(" ")
+  len = quote.length
+  len_line1 = len % 3 == 0 ? len/3 : (len/3)+1
+  line1 = quote[0...len_line1]
+  len = len - len_line1
+  len_line2 = len % 2 == 0 ? len/2 : (len/2)+1
+  line2 = quote[len_line1...(len_line1+len_line2)]
+  line3 = quote[(len_line1+len_line2)..-1]
+
+  Poem.create(
+  user_id: User.all.to_a.sample.id,
+  genre_id: Genre.all.to_a.sample.id,
+  mood_id: Mood.all.to_a.sample.id,
+  title: "#{Faker::Verb.past_participle.titlecase} #{Faker::Verb.ing_form.titlecase} #{Faker::Verb.base}",
+  line_1: line1.join(" "),
+  line_2: line2.join(" "),
+  line_3: line3.join(" ")
+  )
+end
+
+250.times do
+  user_id = User.all.to_a.sample.id
+  poem_id = Poem.all.select{|poem| poem.user_id != user_id}.sample.id
+  Like.create(user_id: user_id, poem_id:poem_id)
+end
+
+100.times do
+  user_id = User.all.to_a.sample.id
+  poem_id = Poem.all.select{|poem| poem.user_id != user_id}.sample.id
+  Comment.create(user_id: user_id, poem_id:poem_id, content: Faker::Quote.famous_last_words)
+end
