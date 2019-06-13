@@ -9,6 +9,8 @@ class PoemsController < ApplicationController
 
   def new
     @poem = Poem.new
+    @genres = Genre.all
+    @moods = Mood.all
   end
 
   def create

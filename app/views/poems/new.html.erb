@@ -1,0 +1,15 @@
+<h1>New User</h1>
+
+<%= form_for @user do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :line_1 %>
+  <%= f.text_field :line_1 %>
+  <%= f.label :line_2 %>
+  <%= f.text_field :line_2 %>
+  <%= f.label :line_3 %>
+  <%= f.text_field :line_3 %>
+  <%= f.collection_select :genre_id, @genres, :id, :name %>
+  <%= f.collection_select :mood_id, @moods, :id, :name %>
+  <%= f.submit %>
+<% end %>

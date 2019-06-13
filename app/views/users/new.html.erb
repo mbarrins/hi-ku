@@ -13,6 +13,5 @@
   <%= f.text_field :password %>
   <%= f.collection_select :genre_ids, @genres, :id, :name, 
   { :selected => false }, { :multiple => true } %>
-  <% end %>
   <%= f.submit %>
 <% end %>
