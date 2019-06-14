@@ -1,8 +1,20 @@
-<h1><%= @user.full_name %> Profile</h1>
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        <h1><%= @user.full_name %></h1>
+      </h1>
+    </div>
+  </div>
+</section>
 
-<%= @user.username %>
-<%= @user.email %>
-<%= @user.password %>
+<br>
+
+<ul>
+  <li><p>Username: <%= @user.username %></p></li><br>
+  <li><p>Email Address: <%= @user.email %></p></li><br>
+  <li><p>Password: <%= @user.password %></p></li><br>
+</ul>
 
 <% @user.genres.each do |genre| %>
   <%= link_to genre.name, genre %>

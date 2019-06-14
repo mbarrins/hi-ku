@@ -1,4 +1,13 @@
-<h1><%= @poem.title %></h1>
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        <%= @poem.title %>
+      </h1>
+    </div>
+  </div>
+</section>
+
 
 <p><%= @poem.content %><p>
 
@@ -6,4 +15,3 @@
 
 <%= link_to @poem.genre.name, @poem.genre %>
 <%= link_to @poem.mood.name, @poem.mood %>
-

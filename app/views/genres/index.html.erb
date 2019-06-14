@@ -1,4 +1,12 @@
-<h1>Genres</h1>
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Genres
+      </h1>
+    </div>
+  </div>
+</section>
 
 <% @genres.each do |genre| %>
   <p><%= link_to genre.name, genre %></p>
