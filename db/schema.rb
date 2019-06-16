@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_144830) do
     t.string "first_name"
     t.string "last_name"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.integer "likes_count"
     t.integer "comments_count"
     t.integer "poems_count"

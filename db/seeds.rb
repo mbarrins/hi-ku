@@ -30,12 +30,14 @@ genres.each do |genre|
 end
 
 25.times{
+  password = Faker::Internet.password(8,8)
   User.create(
     first_name: Faker::Name.first_name, 
     last_name: Faker::Name.last_name, 
     username: Faker::Internet.username, 
     email: Faker::Internet.email, 
-    password: Faker::Internet.password(8,8)
+    password: password,
+    password_confirmation: password
   )
 }
 

@@ -13,8 +13,10 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :password, presence: true, length: {minimum: 6, maximum: 20}
+  validates :password, length: { minimum: 6, maximum: 20 }, allow_nil: true
 
+  has_secure_password
+  
   def full_name
     "#{first_name} #{last_name}"
   end
