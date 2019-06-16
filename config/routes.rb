@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy'
+
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :likes, only: [:create, :destroy]
   resources :poems

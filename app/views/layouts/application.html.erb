@@ -9,12 +9,15 @@
   </head>
 
   <body>
-    <%= link_to "All Users", users_path %>
-    <%= link_to "New User", new_user_path %>
-    <%= link_to "All Poems", poems_path %>
-    <%= link_to "New Poem", new_poem_path %>
-    <%= link_to "All Genres", genres_path %>
-    <%= link_to "All Moods", moods_path %>
+    <% if logged_in? %>
+      <%= link_to "All Users", users_path %>
+      <%= link_to "New User", new_user_path %>
+      <%= link_to "All Poems", poems_path %>
+      <%= link_to "New Poem", new_poem_path %>
+      <%= link_to "All Genres", genres_path %>
+      <%= link_to "All Moods", moods_path %>
+      <%= link_to "Log Out", logout_path %>
+    <% end %>
 
     <div style="color:red">
     <% if !flash.now[:errors].nil? %>

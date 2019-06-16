@@ -15,11 +15,12 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.valid?
+      session[:user_id] = @user.id
       redirect_to @user
     else
       flash.now[:errors] = @user.errors.full_messages
       @genres = Genre.all
-      render new_heroine_path
+      render new_user_path
     end
   end
 
@@ -35,11 +36,13 @@ class UsersController < ApplicationController
 
   private
 
-  def users_params
-    params.require(:user).permit(:username, :first_name, :last_name, :email, :password)
-  end
-
   def set_selection
     @user = User.find(params[:id])
   end
+
+  def user_params
+    params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation)
+  end
+
 end
+
