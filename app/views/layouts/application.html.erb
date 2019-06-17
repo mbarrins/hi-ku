@@ -20,12 +20,29 @@
     <% end %>
 
     <div style="color:red">
+    <% if !flash[:notices].nil? %>
+      <% flash[:notices].each do |notice| %>
+        <p><%= notice %></p>
+      <% end %>
+    <% end %>
+    </div>
+
+    <div style="color:red">
     <% if !flash.now[:errors].nil? %>
       <% flash.now[:errors].each do |error| %>
         <p><%= error %></p>
       <% end %>
     <% end %>
     </div>
+
+    <div style="color:red">
+    <% if !flash[:errors].nil? %>
+      <% flash[:errors].each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    <% end %>
+    </div>
+    
 
     <%= yield %>
   </body>
