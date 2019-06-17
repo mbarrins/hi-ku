@@ -17,17 +17,18 @@
 
 
   <%= f.label :line_1 %>
-  <%= f.text_field :line_1 %><br>
+  <%= f.text_field :line_1, placeholder: "Must contain seven syllables" %><br>
 
   <%= f.label :line_2 %>
-  <%= f.text_field :line_2 %><br>
+  <%= f.text_field :line_2, placeholder: "Must contain five syllables" %><br>
 
   <%= f.label :line_3 %>
-  <%= f.text_field :line_3 %><br>
+  <%= f.text_field :line_3, placeholder: "Must contain five syllables" %><br>
 
   <%= f.collection_select :genre_id, @genres, :id, :name %><br>
 
   <%= f.collection_select :mood_id, @moods, :id, :name %><br>
 
   <%= f.submit %>
+  
 <% end %>

@@ -4,17 +4,117 @@
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Hi!Ku</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
   </head>
 
-  <body>
-    <%= link_to "All Users", users_path %>
-    <%= link_to "New User", new_user_path %>
-    <%= link_to "All Poems", poems_path %>
-    <%= link_to "New Poem", new_poem_path %>
-    <%= link_to "All Genres", genres_path %>
-    <%= link_to "All Moods", moods_path %>
+<body>
+
+
+  <nav class="navbar is-transparent">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="">
+    </a>
+
+    <a class="navbar-item is-hidden-desktop" href="" target="">
+      <span class="icon" style="color: #333;">
+        <i class="fa fa-lg fa-github"></i>
+      </span>
+    </a>
+
+    <a class="navbar-item is-hidden-desktop" href="" target="_blank">
+      <span class="icon" style="color: #55acee;">
+        <i class="fa fa-lg fa-twitter"></i>
+      </span>
+    </a>
+
+    <div class="navbar-burger burger" data-target="navMenuTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div id="navMenuTransparentExample" class="navbar-menu">
+      <div class="navbar-start">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link  is-active" href="">
+            Users
+          </a>
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item " href="<%= users_path %>">
+              All Users
+            </a>
+            <a class="navbar-item " href="<%= new_user_path %>">
+              New Users
+            </a>
+          </div>
+        </div>
+
+        <div id="navMenuTransparentExample" class="navbar-menu">
+            <div class="navbar-start">
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link  is-active" href="">
+                  Poems
+                </a>
+                <div class="navbar-dropdown is-boxed">
+                  <a class="navbar-item " href="<%= poems_path %>">
+                    All poems
+                  </a>
+                  <a class="navbar-item " href="<%= new_poem_path %>">
+                    Write new poem
+                  </a>
+                </div>
+              </div>
+
+          <div id="navMenuTransparentExample" class="navbar-menu">
+              <div class="navbar-start">
+                  <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link  is-active" href="">
+                        Genres
+                    </a>
+                      <div class="navbar-dropdown is-boxed">
+                        <a class="navbar-item " href="<%= genres_path %>">
+                          All Genres
+                        </a>
+                      </div>
+                    </div>
+
+            <div id="navMenuTransparentExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                      <a class="navbar-link  is-active" href="">
+                        Moods
+                      </a>
+                        <div class="navbar-dropdown is-boxed">
+                          <a class="navbar-item " href="<%= moods_path %>">
+                          All Moods
+                          </a>
+                        </div>
+                      </div>
+
+            <div id="navMenuTransparentExample" class="navbar-menu">
+                    <div class="navbar-start">
+                      <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link  is-active" href="">
+                          About
+                        </a>
+                          <div class="navbar-dropdown is-boxed">
+                            <a class="navbar-item " href="<%= about_path %>">
+                                Haiku History
+                            </a>
+                          </div>
+                        </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
 
     <div style="color:red">
     <% if !flash.now[:errors].nil? %>
