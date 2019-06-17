@@ -16,28 +16,15 @@
 </div>
 <div>
   <%= f.label :line_1 %>
-<<<<<<< HEAD
-  <%= f.text_field :line_1, placeholder: "Must contain seven syllables" %><br>
+  <%= f.text_field :line_1, placeholder: "Must contain five syllables" %><br>
 
   <%= f.label :line_2 %>
-  <%= f.text_field :line_2, placeholder: "Must contain five syllables" %><br>
+  <%= f.text_field :line_2, placeholder: "Must contain seven syllables" %><br>
 
   <%= f.label :line_3 %>
   <%= f.text_field :line_3, placeholder: "Must contain five syllables" %><br>
 
-=======
-  <%= f.text_field :line_1 %>
-</div>
-<div>
-  <%= f.label :line_2 %>
-  <%= f.text_field :line_2 %>
-</div>
-<div>
-  <%= f.label :line_3 %>
-  <%= f.text_field :line_3 %>
-</div>
-<div>
->>>>>>> b4c07fbba67b8b03c9ff5f6d5cc5840584d96a98
+
   <%= f.collection_select :genre_id, @genres, :id, :name %><br>
 </div>
 <div>
@@ -45,5 +32,5 @@
 </div>
   <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
   <%= f.submit %>
-  
+
 <% end %>
