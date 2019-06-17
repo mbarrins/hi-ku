@@ -16,11 +16,13 @@ class PoemsController < ApplicationController
   end
 
   def create
-    poem = Poem.create(poems_params)
-    if poem.valid?
-      redirect_to poem
+    @poem = Poem.create(poems_params)
+    if @poem.valid?
+      redirect_to @poem
     else
-      flash.now[:errors] = poem.errors.full_messages
+      flash.now[:errors] = @poem.errors.full_messages
+      @genres = Genre.all
+      @moods = Mood.all
       render new_poem_path
     end
   end
@@ -30,7 +32,7 @@ class PoemsController < ApplicationController
 
   def update
   end
-  
+
   def destroy
 
   end

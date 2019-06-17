@@ -8,12 +8,29 @@
   </div>
 </section>
 
+<br>
 
-<p><%= @poem.line_1 %><p>
-<p><%= @poem.line_2 %><p>
-<p><%= @poem.line_3 %><p>
 
-<br/>
-<p>by <%= link_to @poem.author.full_name, @poem.author %>
-<p>a <%= link_to @poem.genre.name, @poem.genre %> haiku for a
-<%= link_to @poem.mood.name, @poem.mood %> mood</p>
+
+<div class="tile is-ancestor">
+  <div class="tile is-4 is-vertical is-parent">
+    <div class="tile is-child notification is-warning">
+      <p>
+        <p><%= @poem.line_1 %><p>
+        <p><%= @poem.line_2 %><p>
+        <p><%= @poem.line_3 %><p>
+    </div>
+    <div class="tile is-child notification is-danger">
+      <p>by <%= link_to @poem.author.full_name, @poem.author %></p>
+      <p>a <%= link_to @poem.genre.name, @poem.genre %> haiku for a
+      <%= link_to @poem.mood.name, @poem.mood %> mood</p>
+    </div>
+  </div>
+
+  <div class="tile is-parent">
+    <div class="tile is-child box">
+      <p class="title">Other Poems from this Author</p>
+
+    </div>
+  </div>
+</div>

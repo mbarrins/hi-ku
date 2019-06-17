@@ -1,5 +1,7 @@
 {
   "name": "hi-ku",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bulma": "^0.7.5"
+  }
 }
