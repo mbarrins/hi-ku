@@ -53,6 +53,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
+    params[:user][:password].try(&:strip!)
     params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation)
   end
 

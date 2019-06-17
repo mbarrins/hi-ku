@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6, maximum: 20 }, allow_nil: true
 
   has_secure_password
+  strip_attributes collapse_spaces: true, replace_newlines: true
   
   def full_name
     "#{first_name} #{last_name}"

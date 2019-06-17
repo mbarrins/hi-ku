@@ -10,12 +10,11 @@ class Poem < ApplicationRecord
 
   validates :title, presence: true
   validates :line_1, presence: true
-  validate :line_1_equals?
   validates :line_2, presence: true
-  validate :line_2_equals?
   validates :line_3, presence: true
-  validate :line_3_equals?
+  validate :line_1_equals?, :line_2_equals?, :line_3_equals?
 
+  strip_attributes collapse_spaces: true, replace_newlines: true
 
   def line_1_equals?
     if self.line_1_number != 5
