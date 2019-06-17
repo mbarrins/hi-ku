@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2019_06_13_144830) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comments", force: :cascade do |t|
-    t.integer "poem_id"
-    t.integer "user_id"
+    t.bigint "poem_id"
+    t.bigint "user_id"
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,8 +33,8 @@ ActiveRecord::Schema.define(version: 2019_06_13_144830) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "poem_id"
-    t.integer "user_id"
+    t.bigint "poem_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["poem_id"], name: "index_likes_on_poem_id"
@@ -46,9 +49,9 @@ ActiveRecord::Schema.define(version: 2019_06_13_144830) do
   end
 
   create_table "poems", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "genre_id"
-    t.integer "mood_id"
+    t.bigint "user_id"
+    t.bigint "genre_id"
+    t.bigint "mood_id"
     t.string "title"
     t.string "line_1"
     t.string "line_2"
@@ -63,8 +66,8 @@ ActiveRecord::Schema.define(version: 2019_06_13_144830) do
   end
 
   create_table "user_genres", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "genre_id"
+    t.bigint "user_id"
+    t.bigint "genre_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["genre_id"], name: "index_user_genres_on_genre_id"
@@ -84,4 +87,13 @@ ActiveRecord::Schema.define(version: 2019_06_13_144830) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "comments", "poems"
+  add_foreign_key "comments", "users"
+  add_foreign_key "likes", "poems"
+  add_foreign_key "likes", "users"
+  add_foreign_key "poems", "genres"
+  add_foreign_key "poems", "moods"
+  add_foreign_key "poems", "users"
+  add_foreign_key "user_genres", "genres"
+  add_foreign_key "user_genres", "users"
 end
