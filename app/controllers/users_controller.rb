@@ -2,6 +2,15 @@ class UsersController < ApplicationController
   before_action :set_selection, only: [:show, :edit, :update, :destroy]
   before_action :require_login, only: [:index, :show, :edit, :update, :destroy]
 
+  def home
+    if !!params[:page]
+      @poems = Poem.page(params[:page]).per(5)
+    else
+      params[:page] = 1
+      @poems = Poem.page(1)
+    end
+  end
+
   def index
     @users = User.all
   end
@@ -18,7 +27,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       session[:user_id] = @user.id
-      redirect_to @user
+      redirect_to home_path
     else
       flash.now[:errors] = @user.errors.full_messages
       @genres = Genre.all
@@ -46,10 +55,5 @@ class UsersController < ApplicationController
     params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation)
   end
 
-  def require_login
-    if !logged_in?
-      redirect_to login_path
-    end
-  end
 end
 
