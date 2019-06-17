@@ -7,6 +7,8 @@ class Poem < ApplicationRecord
   has_many :users_who_liked, through: :likes, source: :user
   has_many :comments
   has_many :users_who_commented, through: :comments, source: :user
+  has_many :bookmarks
+  has_many :users_who_bookmarked, through: :bookmarks, source: :user
 
   validates :title, presence: true
   validates :line_1, presence: true
@@ -104,5 +106,21 @@ class Poem < ApplicationRecord
 
   def user_like(user_id)
     Like.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def commented_by_session_user?(user_id)
+    !!Comment.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def user_comment(user_id)
+    Comment.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def saved_by_session_user?(user_id)
+    !!Bookmark.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def user_bookmark(user_id)
+    Bookmark.find_by(user_id: user_id, poem_id: self.id)
   end
 end

@@ -1,15 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_selection, only: [:show, :edit, :update, :destroy]
+  before_action :set_selection, only: [:show, :edit, :update, :destroy, :my_poems, :liked_poems, :my_comments, :saved_poems]
   before_action :require_login, only: [:index, :show, :edit, :update, :destroy]
+  before_action :new_like, only: [:home, :my_poems, :liked_poems, :my_comments, :saved_poems]
 
   def home
-    @like = Like.new
-    if !!params[:page]
-      @poems = Poem.page(params[:page]).per(12)
-    else
-      params[:page] = 1
-      @poems = Poem.page(1).per(12)
-    end
+    @poems = Poem.order(:title).page(page_params).per(12)
   end
 
   def index
@@ -46,10 +41,26 @@ class UsersController < ApplicationController
 
   end
 
+  def my_poems
+    @poems = @user.poems.order(:title).page(page_params).per(12)
+  end
+
+  def liked_poems
+    @poems = @user.liked_poems.order(:title).page(page_params).per(12)
+  end
+
+  def my_comments
+    @poems = @user.commented_poems.order(:title).page(page_params).per(12)
+  end
+
+  def saved_poems
+    @poems = @user.bookmarked_poems.order(:title).page(page_params).per(12)
+  end
+
   private
 
   def set_selection
-    @user = User.find(params[:id])
+    @user = User.find(current_user_id)
   end
 
   def user_params
@@ -57,5 +68,11 @@ class UsersController < ApplicationController
     params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation)
   end
 
-end
+  def page_params
+    params[:page] ||= 1
+  end
 
+  def new_like
+    @like = Like.new
+  end
+end

@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :liked_poems, through: :likes, source: :poem
   has_many :comments
   has_many :commented_poems, through: :comments, source: :poem
+  has_many :bookmarks
+  has_many :bookmarked_poems, through: :bookmarks, source: :poem
   has_many :user_genres
   has_many :selected_genres, through: :user_genres, source: :genre
 
