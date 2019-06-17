@@ -11,7 +11,7 @@
 
 <body>
 
-
+<% if logged_in? %>
   <nav class="navbar is-transparent">
     <div class="navbar-brand">
       <a class="navbar-item" href="">
@@ -101,11 +101,27 @@
                           About
                         </a>
                           <div class="navbar-dropdown is-boxed">
-                            <a class="navbar-item " href="<%= about_path %>">
+                            <a class="navbar-item " href=<%= about_path %>>
                                 Haiku History
                             </a>
                           </div>
                         </div>
+
+              <div class="navbar-item">
+                 <div class="field is-grouped">
+                   <p class="control">
+                     <a class="bd-tw-button button"
+
+
+           target="_blank"
+           href=<%= logout_path %>>
+           <span>
+             Log Out
+           </span>
+             </a>
+             </p>
+                 </div>
+               </div>
 
 
 
@@ -113,6 +129,8 @@
         </div>
       </div>
     </nav>
+
+    <% end %>
 
 
 
@@ -124,6 +142,23 @@
     <% end %>
     </div>
 
-    <%= yield %>
+    <div style="color:red">
+    <% if !flash[:notices].nil? %>
+      <% flash[:notices].each do |notice| %>
+        <p><%= notice %></p>
+      <% end %>
+    <% end %>
+    </div>
+
+    <div style="color:red">
+    <% if !flash[:errors].nil? %>
+      <% flash[:errors].each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    <% end %>
+    </div>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

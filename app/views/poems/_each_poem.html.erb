@@ -1,0 +1,16 @@
+<%= paginate @poems %>
+<% @poems.each do |poem| %>
+  <div class="columns">
+    <div class="column">
+      <p><%= poem.line_1 %><p>
+      <p><%= poem.line_2 %><p>
+      <p><%= poem.line_3 %><p>
+    </div>
+    <div class="column">
+      <p>by <%= link_to poem.author.full_name, poem.author %>
+      <p>a <%= link_to poem.genre.name, poem.genre %> haiku for a
+      <%= link_to poem.mood.name, poem.mood %> mood</p>
+    </div>
+  </div>
+  <hr />
+<% end %>

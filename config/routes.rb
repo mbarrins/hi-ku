@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-
-  get '/static/about', to: 'static#show', as: :about
-
+  root 'sessions#new'
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy'
+  get '/home', to: 'users#home'
 
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :likes, only: [:create, :destroy]
