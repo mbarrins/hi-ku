@@ -8,7 +8,9 @@ class LikesController < ApplicationController
   end
 
   def destroy
+    session[:return_to] ||= request.referer
     Like.find(params[:id]).destroy
+    redirect_to session.delete(:return_to)
   end
 
   private

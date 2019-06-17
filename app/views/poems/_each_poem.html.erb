@@ -26,13 +26,34 @@
 
             <div class="columns">
               <div class="column">
-                <p class="is-size-7 has-text-centered"><%= "Like" %></p>
+                <p class="is-size-7 has-text-centered">
+                  <% if poem.liked_by_session_user?(current_user_id) %>
+                    <%= form_for poem.user_like(current_user_id), method: :delete do %>
+                      <%= submit_tag "Liked", class:'button is-small is-primary' %>
+                    <% end %>
+                  <% else %>
+                    <%= form_for @like do |f| %>
+                      <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
+                      <%= f.hidden_field :poem_id, value: "#{poem.id}" %>
+                      <%= f.submit "Like", class:'button is-small tooltip' %>
+                    <% end %>
+                  <% end %></p>
               </div>
               <div class="column">
-                <p class="is-size-7 has-text-centered"><%= "Comment" %></p>
+                <p class="is-size-7 has-text-centered">
+                <%= form_tag likes_path, method: :destroy do %>
+                      <%= hidden_field_tag :'like[:user_id]', value: "#{current_user_id}" %>
+                      <%= hidden_field_tag :'like[:poem_id]', value: "#{poem.id}" %>
+                      <%= submit_tag "Comment", class:'button is-small' %>
+                    <% end %></p>
               </div>
               <div class="column">
-                <p class="is-size-7 has-text-centered"><%= "Save" %></p>
+                <p class="is-size-7 has-text-centered">
+                <%= form_tag likes_path, method: :destroy do %>
+                      <%= hidden_field_tag :'like[:user_id]', value: "#{current_user_id}" %>
+                      <%= hidden_field_tag :'like[:poem_id]', value: "#{poem.id}" %>
+                      <%= submit_tag "Save", class:'button is-small' %>
+                    <% end %></p>
               </div>
             </div>
 

@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :require_login, only: [:index, :show, :edit, :update, :destroy]
 
   def home
+    @like = Like.new
     if !!params[:page]
       @poems = Poem.page(params[:page]).per(12)
     else
