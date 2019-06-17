@@ -98,4 +98,12 @@ class Poem < ApplicationRecord
     #{self.line_2}
     #{self.line_3}"
   end
+
+  def liked_by_session_user?(user_id)
+    !!Like.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def user_like(user_id)
+    Like.find_by(user_id: user_id, poem_id: self.id)
+  end
 end

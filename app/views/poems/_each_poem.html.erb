@@ -1,16 +1,64 @@
 <%= paginate @poems %>
-<% @poems.each do |poem| %>
-  <div class="columns">
-    <div class="column">
-      <p><%= poem.line_1 %><p>
-      <p><%= poem.line_2 %><p>
-      <p><%= poem.line_3 %><p>
+
+<div class="tile is-ancestor" style="flex-wrap: wrap;">
+
+  <% @poems.each_slice(4).to_a.each do |poems| %>
+  
+    <div class="tile is-parent is-vertical">
+      <% poems.each do |poem| %>
+          <div class="tile is-child box">
+            <p class="subtitle is-3 has-text-centered"><%= poem.title %></p>
+            
+            <div class="columns">
+              <div class="column">
+                <p><%= poem.line_1 %></p>
+                <p><%= poem.line_2 %></p>
+                <p><%= poem.line_3 %></p>
+              </div>
+              <div class="column">
+                <p>by <%= link_to poem.author.full_name, poem.author %></p>
+              </div>
+            </div>
+
+            <p>a <%= link_to poem.genre.name, poem.genre %> haiku for a
+              <%= link_to poem.mood.name, poem.mood %> mood</p>
+            <hr/>
+
+            <div class="columns">
+              <div class="column">
+                <p class="is-size-7 has-text-centered">
+                  <% if poem.liked_by_session_user?(current_user_id) %>
+                    <%= form_for poem.user_like(current_user_id), method: :delete do %>
+                      <%= submit_tag "Liked", class:'button is-small is-primary' %>
+                    <% end %>
+                  <% else %>
+                    <%= form_for @like do |f| %>
+                      <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
+                      <%= f.hidden_field :poem_id, value: "#{poem.id}" %>
+                      <%= f.submit "Like", class:'button is-small tooltip' %>
+                    <% end %>
+                  <% end %></p>
+              </div>
+              <div class="column">
+                <p class="is-size-7 has-text-centered">
+                <%= form_tag likes_path, method: :destroy do %>
+                      <%= hidden_field_tag :'like[:user_id]', value: "#{current_user_id}" %>
+                      <%= hidden_field_tag :'like[:poem_id]', value: "#{poem.id}" %>
+                      <%= submit_tag "Comment", class:'button is-small' %>
+                    <% end %></p>
+              </div>
+              <div class="column">
+                <p class="is-size-7 has-text-centered">
+                <%= form_tag likes_path, method: :destroy do %>
+                      <%= hidden_field_tag :'like[:user_id]', value: "#{current_user_id}" %>
+                      <%= hidden_field_tag :'like[:poem_id]', value: "#{poem.id}" %>
+                      <%= submit_tag "Save", class:'button is-small' %>
+                    <% end %></p>
+              </div>
+            </div>
+
+          </div>
+      <% end %>
     </div>
-    <div class="column">
-      <p>by <%= link_to poem.author.full_name, poem.author %>
-      <p>a <%= link_to poem.genre.name, poem.genre %> haiku for a
-      <%= link_to poem.mood.name, poem.mood %> mood</p>
-    </div>
-  </div>
-  <hr />
-<% end %>
+  <% end %>
+</div>

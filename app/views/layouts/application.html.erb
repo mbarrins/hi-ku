@@ -13,12 +13,33 @@
 
 <% if logged_in? %>
   <nav class="navbar is-transparent">
+    <div class="navbar-brand">
+      <a class="navbar-item" href=""></a>
+
+    <a class="navbar-item is-hidden-desktop" href="" target="">
+      <span class="icon" style="color: #333;">
+        <i class="fa fa-lg fa-github"></i>
+      </span>
+    </a>
+
+    <a class="navbar-item is-hidden-desktop" href="" target="_blank">
+      <span class="icon" style="color: #55acee;">
+        <i class="fa fa-lg fa-twitter"></i>
+      </span>
+    </a>
+
+    <div class="navbar-burger burger" data-target="navMenuTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
 
   <div id="navMenuTransparentExample" class="navbar-menu">
       <div class="navbar-start">
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link  is-active" href=<%= home_path %>>
-            Users
+            Home
           </a>
           <div class="navbar-dropdown is-boxed">
             <a class="navbar-item " href="<%= users_path %>">
@@ -29,69 +50,92 @@
             </a>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div id="navMenuTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link  is-active" href="">
+              Haiku
+            </a>
+            <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item " href="<%= poems_path %>">
+                Browse Haiku
+              </a>
+              <a class="navbar-item " href="<%= poems_path %>">
+                Search Haiku
+              </a>
+              <a class="navbar-item " href="<%= new_poem_path %>">
+                Write New Haiku
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="navMenuTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link  is-active" href="">
+                  Genres
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <a class="navbar-item " href="<%= genres_path %>">
+                  All Genres
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div id="navMenuTransparentExample" class="navbar-menu">
-            <div class="navbar-start">
+          <div class="navbar-start">
               <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link  is-active" href="">
-                  Poems
+                  Moods
                 </a>
                 <div class="navbar-dropdown is-boxed">
-                  <a class="navbar-item " href="<%= poems_path %>">
-                    All poems
-                  </a>
-                  <a class="navbar-item " href="<%= new_poem_path %>">
-                    Write new poem
+                  <a class="navbar-item " href="<%= moods_path %>">
+                  All Moods
                   </a>
                 </div>
               </div>
-
-          <div id="navMenuTransparentExample" class="navbar-menu">
-              <div class="navbar-start">
-                  <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link  is-active" href="">
-                        Genres
-                    </a>
-                      <div class="navbar-dropdown is-boxed">
-                        <a class="navbar-item " href="<%= genres_path %>">
-                          All Genres
-                        </a>
-                      </div>
-                    </div>
-
-            <div id="navMenuTransparentExample" class="navbar-menu">
-                <div class="navbar-start">
-                    <div class="navbar-item has-dropdown is-hoverable">
-                      <a class="navbar-link  is-active" href="">
-                        Moods
-                      </a>
-                        <div class="navbar-dropdown is-boxed">
-                          <a class="navbar-item " href="<%= moods_path %>">
-                          All Moods
-                          </a>
-                        </div>
-                      </div>
-
-          <div id="navMenuTransparentExample" class="navbar-menu">
-              <div class="navbar-item" >
-                <div class="navbar-end">
-                 <div class="field is-grouped">
-                   <p class="control">
-                     <a class="bd-tw-button button" target="_blank"href=<%= logout_path %>>
-                     <span>
-                     Log Out
-                     </span>
-                    </a>
-                 </p>
-               </div>
             </div>
-
-
           </div>
         </div>
 
 
-
+        <div id="navMenuTransparentExample" class="navbar-menu">
+          <div class="navbar-start">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link  is-active" href="">
+                User
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <a class="navbar-item " href="<%= logout_path %>">
+                New Haiku
+                </a>
+                <a class="navbar-item " href="<%= logout_path %>">
+                My Haiku
+                </a>
+                <a class="navbar-item " href="<%= logout_path %>">
+                My Saved Haiku
+                </a>
+                <a class="navbar-item " href="<%= logout_path %>">
+                My Liked Haiku
+                </a>
+                <a class="navbar-item " href="<%= logout_path %>">
+                My Comments
+                </a>
+                <a class="navbar-item " href="<%= logout_path %>">
+                Profile
+                </a>
+                <a class="navbar-item " href="<%= logout_path %>">
+                Sign out
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
