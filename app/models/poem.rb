@@ -44,9 +44,9 @@ class Poem < ApplicationRecord
     line = []
     words = self.line_1_split
     words.each do |word|
-    new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-    word_info = new_word.find{|k| k['word'] == word}
-    line << word_info["numSyllables"]
+      new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+      word_info = new_word.find{|k| k['word'] == word}
+      line << word_info["numSyllables"]
     end
     line.sum
   end
