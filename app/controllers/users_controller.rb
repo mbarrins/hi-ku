@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_selection, only: [:show, :edit, :update, :destroy, :my_poems, :liked_poems, :my_comments, :saved_poems]
   before_action :require_login, only: [:index, :show, :edit, :update, :destroy]
-  before_action :new_like, only: [:home, :my_poems, :liked_poems, :my_comments, :saved_poems]
+  before_action :new_like, :new_bookmark, only: [:home, :my_poems, :liked_poems, :my_comments, :saved_poems]
 
   def home
     @poems = Poem.order(:title).page(page_params).per(12)
@@ -74,5 +74,9 @@ class UsersController < ApplicationController
 
   def new_like
     @like = Like.new
+  end
+
+  def new_bookmark
+    @bookmark = Bookmark.new
   end
 end
