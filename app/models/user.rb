@@ -39,6 +39,8 @@ class User < ApplicationRecord
   end
 
   def suggested_poems
-    self.liked_poems.map{|poem| poem.poems_also_liked}.flatten.map.with_object(Hash.new(0)) { |poem,h| h[poem] += 1 }.sort_by{|poem, count| count}.reverse.to_h.values
+    self.liked_poems.map do |poem| 
+      poem.poems_also_liked.reject{|p| p.user_id == self.id || p.users_who_liked.include?(self)}
+    end.flatten.map.with_object(Hash.new(0)) { |poem,h| h[poem] += 1 }.sort_by{|poem, count| count}.reverse.to_h.keys
   end
 end
