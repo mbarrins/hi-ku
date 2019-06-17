@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_selection, only: [:edit, :update, :destroy]
+  before_action :require_login
+  
   def new
     @comment = Comment.new
   end

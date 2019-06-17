@@ -1,4 +1,6 @@
 class LikesController < ApplicationController
+  before_action :require_login
+  
   def create
     session[:return_to] ||= request.referer
     Like.create(like_params)

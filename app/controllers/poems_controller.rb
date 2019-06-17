@@ -1,5 +1,7 @@
 class PoemsController < ApplicationController
   before_action :set_selection, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
+
   def index
     @poems = Poem.all
   end
