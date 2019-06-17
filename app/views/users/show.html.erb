@@ -13,9 +13,16 @@
 <ul>
   <li><p>Username: <%= @user.username %></p></li><br>
   <li><p>Email Address: <%= @user.email %></p></li><br>
-  <li><p>Password: <%= @user.password %></p></li><br>
 </ul>
 
+<h4 class="title is-4">All Poems by this Author</h4>
+<% @user.poems.each do |poem| %>
+  <%= link_to poem.title, poem %><br>
+<% end %>
+
+<br>
+
+<h4 class="title is-4">Included Genres in this Authors work</h4>
 <% @user.genres.each do |genre| %>
   <%= link_to genre.name, genre %>
 <% end %>

@@ -30,6 +30,12 @@
   <div class="tile is-parent">
     <div class="tile is-child box">
       <p class="title">Other Poems from this Author</p>
+            <% @poem.author.poems.each do |poem| %>
+              <p><%= link_to poem.title, poem %></p>
+              <p> Genre <%= poem.genre.name%></p>
+              <p> number of likes <%= poem.likes_count%></p><br>
+            <% end %>
+
 
     </div>
   </div>

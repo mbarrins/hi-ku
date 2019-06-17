@@ -8,6 +8,25 @@
   </div>
 </section>
 
-<% @moods.each do |mood| %>
-  <p><%= link_to mood.name, mood %></p>
-<% end %>
+<br>
+
+<div class="tile is-ancestor">
+  <div class="tile is-4 is-vertical is-parent">
+    <div class="tile is-child notification is-warning">
+      <p class="title is-5">Available moods</p>
+      <% @moods.each do |mood| %>
+      <p><%= link_to mood.name, mood %></p>
+      <% end %>
+    </div>
+
+    <div class="tile is-child notification is-danger">
+      <p class="title is-5">Popular Moods</p>
+      <% @moods.each do |mood| %>
+      <p><%= link_to mood.poems_count, mood %></p>
+      <% end %>  
+    </div>
+
+
+
+  </div>
+</div>
