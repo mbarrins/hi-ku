@@ -5,6 +5,8 @@ class Poem < ApplicationRecord
   belongs_to :mood, counter_cache: true
   has_many :likes
   has_many :users_who_liked, through: :likes, source: :user
+  has_many :users_also_likes, through: :users_who_liked, source: :likes
+  has_many :poems_also_liked, through: :users_also_likes, source: :poem
   has_many :comments
   has_many :users_who_commented, through: :comments, source: :user
   has_many :bookmarks

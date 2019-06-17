@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :new_like, :new_bookmark, only: [:home, :my_poems, :liked_poems, :my_comments, :saved_poems]
 
   def home
-    @poems = Poem.order(:title).page(page_params).per(12)
+    @poems = @user.set_selection.page(page_params).per(12)
   end
 
   def index
@@ -60,7 +60,11 @@ class UsersController < ApplicationController
   private
 
   def set_selection
-    @user = User.find(current_user_id)
+    if params[:id]
+      @user = User.find(params[:id])
+    else
+      @user = User.find(current_user_id)
+    end
   end
 
   def user_params
