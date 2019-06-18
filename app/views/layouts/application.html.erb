@@ -12,8 +12,9 @@
 <body>
 
 <% if logged_in? %>
+<section class="section">
 <div class="container">
-  <nav class="navbar is-transparent">
+  <nav class="navbar is-transparent is-fixed-top">
     <div class="navbar-brand">
       <a class="navbar-item" href=""></a>
 
@@ -98,10 +99,8 @@
       </div>
     </nav>
   </div>
-    <% end %>
-
-
-
+  </section>
+<% end %>
 
     <div style="color:red">
     <% if !flash[:notices].nil? %>
@@ -118,9 +117,10 @@
       <% end %>
     <% end %>
     </div>
-    <br/>
+
     <div class="container">
       <%= yield %>
     </div>
+
   </body>
 </html>

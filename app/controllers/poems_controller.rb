@@ -21,13 +21,22 @@ class PoemsController < ApplicationController
   end
 
   def create
-    @poem = Poem.create(poems_params)
-    if @poem.valid?
+    @poem = Poem.new(poems_params)
+    @word_errors = @poem.check_db
+    @poem.valid?
+    @genres = Genre.all
+    @moods = Mood.all
+
+    if @word_errors.empty? && @poem.valid?
+      @poem.save
       redirect_to @poem
+    elsif !@word_errors.empty?
+      flash[:errors] = @poem.errors.full_messages
+      flash[:errors] << "Missing syllables for word(s), please add below."
+      render new_poem_path
     else
-      flash.now[:errors] = @poem.errors.full_messages
-      @genres = Genre.all
-      @moods = Mood.all
+      @word_errors = nil
+      flash[:errors] = @poem.errors.full_messages
       render new_poem_path
     end
   end
