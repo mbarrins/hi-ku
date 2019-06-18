@@ -15,19 +15,19 @@
         <%= form_for @poem do |f| %>
         <div class="field is-horizontal">
           <%= f.label :title, class:'field-label' %>
-          <%= f.text_field :title, class:'field-body is-normal' %>
+          <%= f.text_field :title, class:'field-body is-normal', required: true %>
         </div>
         <div class="field is-horizontal">
           <%= f.label :line_1, class:'field-label' %>
-          <%= f.text_field :line_1, placeholder: "Must contain five syllables", class:'field-body is-normal' %>
+          <%= f.text_field  :line_1, placeholder: "Must contain five syllables", class:'field-body is-normal', required: true %>
         </div>
         <div class="field is-horizontal">
           <%= f.label :line_2, class:'field-label'  %>
-          <%= f.text_field :line_2, placeholder: "Must contain seven syllables", class:'field-body is-normal' %>
+          <%= f.text_field :line_2, placeholder: "Must contain seven syllables", class:'field-body is-normal', required: true %>
         </div>
         <div class="field is-horizontal">
           <%= f.label :line_3, class:'field-label'  %>
-          <%= f.text_field :line_3, placeholder: "Must contain five syllables", class:'field-body is-normal' %>
+          <%= f.text_field :line_3, placeholder: "Must contain five syllables", class:'field-body is-normal', required: true %>
         </div>
         <div class="field is-horizontal">
           <%= f.label :genre, class:'field-label'  %>

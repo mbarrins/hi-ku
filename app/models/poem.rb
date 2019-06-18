@@ -28,133 +28,69 @@ class Poem < ApplicationRecord
     #{self.line_3}"
   end
 
-  def pre_check
-    check = self.content.downcase.gsub(/[^a-z0-9\s]/i, '')
-    check.split(" ")
-  end
-
-  def check_db
-    new_words = []
-    words = self.pre_check
-    words.each do |word|
-    word_db = Word.find_by(word: word)
-      if !word_db
-        new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-        word_info = new_word.find{|k| k['word'] == word}
-          if word_info
-              Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
-          else
-              new_words << word
-        end
-      end
+    def pre_check
+      check = self.content.downcase.gsub(/[^a-z0-9\s]/i, '')
+      check.split(" ")
     end
-      new_words
-  end
 
 
-
-
-  def line_1_equals?
-    if self.line_1_number != 5
-      errors.add(:line_1, "syllables must be equal to five")
-    end
-  end
-
-  def line_2_equals?
-    if self.line_2_number != 7
-      errors.add(:line_2, "syllables must be equal to seven")
-    end
-  end
-
-  def line_3_equals?
-    if self.line_3_number != 5
-      errors.add(:line_3, "syllables must be equal to five")
-    end
-  end
-
-  def line_1_split
-    words = self.line_1.downcase.gsub(/[^a-z0-9\s]/i, '')
-    words.split(" ")
-  end
-
-  def line_1_number
-    line = 0
-    words = self.line_1_split
-    words.each do |word|
+    def check_db
+      new_words = []
+      words = self.pre_check
+      words.each do |word|
       word_db = Word.find_by(word: word)
-      # byebug
-          if word_db
-            line+= word_db.syllable
-          else
-            new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-            word_info = new_word.find{|k| k['word'] == word}
-          if word_info
-            line += word_info["numSyllables"]
-            Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
-          else
-            line+= 99
-
-            end
+        if !word_db
+          new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+          word_info = new_word.find{|k| k['word'] == word}
+            if word_info
+                Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
+            else
+                new_words << word
           end
         end
-       line
       end
+        new_words
+    end
 
-
-  def line_2_split
-    words = self.line_2.downcase.gsub(/[^a-z0-9\s]/i, '')
-    words.split(" ")
-  end
-
-  def line_2_number
-    line = 0
-    words = self.line_2_split
-    words.each do |word|
-      word_db = Word.find_by(word: word)
-
-      if word_db
-        line+= word_db.syllable
-      else
-        new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-        word_info = new_word.find{|k| k['word'] == word}
-      if word_info
-        line += word_info["numSyllables"]
-        Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
-      else
-        line+= 99
-        end
+    def line_1_equals?
+      if self.line_number(self.line_1) != 5
+        errors.add(:line_1, "syllables must be equal to five")
       end
     end
-   line
-  end
 
-
-  def line_3_split
-    words = self.line_3.downcase.gsub(/[^a-z0-9\s]/i, '')
-    words.split(" ")
-  end
-
-  def line_3_number
-    line = 0
-    words = self.line_3_split
-    words.each do |word|
-      word_db = Word.find_by(word: word)
-
-      if word_db
-        line+= word_db.syllable
-      else
-        new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-        word_info = new_word.find{|k| k['word'] == word}
-      if word_info
-        line += word_info["numSyllables"]
-        Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
-      else
-        line += 99
-        end
+    def line_2_equals?
+      if self.line_number(self.line_2) != 7
+        errors.add(:line_2, "syllables must be equal to seven")
       end
     end
-   line
-  end
+
+    def line_3_equals?
+      if self.line_number(self.line_3) != 5
+        errors.add(:line_3, "syllables must be equal to five")
+      end
+    end
+
+    def line_split(line)
+      words = line.downcase.gsub(/[^a-z0-9\s]/i, '')
+      words.split(" ")
+    end
+
+    def line_number(line)
+      line_count = 0
+      words = self.line_split(line)
+      words.each do |word|
+        word_db = Word.find_by(word: word)
+        # byebug
+            if word_db
+              line_count+= word_db.syllable
+            else
+              line_count += 99
+            end
+          end
+         line_count
+        end
+
+
 
   def no_of_comments
     self.comments.length
