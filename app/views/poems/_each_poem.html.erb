@@ -2,72 +2,65 @@
 
 <div class="tile is-ancestor" style="flex-wrap: wrap;">
 
-  <% @poems.each_slice(4).to_a.each do |poems| %>
-  
+  <% @poems.each do |poem| %>
     <div class="tile is-parent is-vertical">
-      <% poems.each do |poem| %>
-          <div class="tile is-child box">
-            <p class="subtitle is-3 has-text-centered"><%= poem.title %></p>
-            
-            <div class="columns">
-              <div class="column">
-                <p><%= poem.line_1 %></p>
-                <p><%= poem.line_2 %></p>
-                <p><%= poem.line_3 %></p>
-              </div>
-              <div class="column">
-                <p>by <%= link_to poem.author.full_name, poem.author %></p>
-              </div>
-            </div>
-
-            <p>a <%= link_to poem.genre.name, poem.genre %> haiku for a
-              <%= link_to poem.mood.name, poem.mood %> mood</p>
-            <hr/>
-
-            <div class="columns">
-              <div class="column">
-                <p class="is-size-7 has-text-centered">
-                  <% if poem.user_id == current_user_id %>
-                    <%= link_to "#{poem.likes_count} Likes", poem,  class:'button is-small has-text-centered' %>
-                  <% elsif poem.liked_by_session_user?(current_user_id) %>
-                    <%= form_for poem.user_like(current_user_id), method: :delete do %>
-                      <%= submit_tag "Liked", class:'button is-small is-primary' %>
-                    <% end %>
-                  <% else %>
-                    <%= form_for @like do |f| %>
-                      <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
-                      <%= f.hidden_field :poem_id, value: "#{poem.id}" %>
-                      <%= f.submit "Like", class:'button is-small tooltip' %>
-                    <% end %>
-                  <% end %></p>
-              </div>
-              <div class="column">
-                  <% if poem.user_id == current_user_id %>
-                    <%= link_to "#{poem.comments_count} Comments", poem,  class:'button is-small has-text-centered' %>
-                  <% else %>
-                    <%= link_to "Comment", poem,  class:'button is-small has-text-centered' %>
-                  <% end %>
-              </div>
-              <div class="column">
-                <p class="is-size-7 has-text-centered">
-                  <% if poem.user_id == current_user_id %>
-                    <%= link_to "#{poem.bookmarks_count} Saves", poem,  class:'button is-small has-text-centered' %>
-                  <% elsif poem.saved_by_session_user?(current_user_id) %>
-                    <%= form_for poem.user_bookmark(current_user_id), method: :delete do %>
-                      <%= submit_tag "Saved", class:'button is-small is-primary' %>
-                    <% end %>
-                  <% else %>
-                    <%= form_for @bookmark do |f| %>
-                      <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
-                      <%= f.hidden_field :poem_id, value: "#{poem.id}" %>
-                      <%= f.submit "Save", class:'button is-small tooltip' %>
-                    <% end %>
-                  <% end %></p>
-              </div>
-            </div>
-
+      <div class="tile is-child box">
+        <p class="subtitle has-text-centered"><%= poem.title %></p>
+        
+        <div class="columns">
+          <div class="column">
+            <p><%= poem.line_1 %></p>
+            <p><%= poem.line_2 %></p>
+            <p><%= poem.line_3 %></p>
           </div>
-      <% end %>
+        </div>
+
+        <p>a <%= link_to poem.genre.name, poem.genre %> haiku for a
+          <%= link_to poem.mood.name, poem.mood %> mood by <%= link_to poem.author.full_name, poem.author %></p>
+        <hr/>
+
+        <div class="columns">
+          <div class="column">
+            <p class="is-size-7 has-text-centered">
+              <% if poem.user_id == current_user_id %>
+                <%= link_to "#{poem.likes_count} Likes", poem,  class:'button is-small has-text-centered' %>
+              <% elsif poem.liked_by_session_user?(current_user_id) %>
+                <%= form_for poem.user_like(current_user_id), method: :delete do %>
+                  <%= submit_tag "Liked", class:'button is-small is-primary' %>
+                <% end %>
+              <% else %>
+                <%= form_for @like do |f| %>
+                  <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
+                  <%= f.hidden_field :poem_id, value: "#{poem.id}" %>
+                  <%= f.submit "Like", class:'button is-small tooltip' %>
+                <% end %>
+              <% end %></p>
+          </div>
+          <div class="column">
+              <% if poem.user_id == current_user_id %>
+                <%= link_to "#{poem.comments_count} Comments", poem,  class:'button is-small has-text-centered' %>
+              <% else %>
+                <%= link_to "Comment", poem,  class:'button is-small has-text-centered' %>
+              <% end %>
+          </div>
+          <div class="column">
+            <p class="is-size-7 has-text-centered">
+              <% if poem.user_id == current_user_id %>
+                <%= link_to "#{poem.bookmarks_count} Saves", poem,  class:'button is-small has-text-centered' %>
+              <% elsif poem.saved_by_session_user?(current_user_id) %>
+                <%= form_for poem.user_bookmark(current_user_id), method: :delete do %>
+                  <%= submit_tag "Saved", class:'button is-small is-primary' %>
+                <% end %>
+              <% else %>
+                <%= form_for @bookmark do |f| %>
+                  <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
+                  <%= f.hidden_field :poem_id, value: "#{poem.id}" %>
+                  <%= f.submit "Save", class:'button is-small tooltip' %>
+                <% end %>
+              <% end %></p>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>

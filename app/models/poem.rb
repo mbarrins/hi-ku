@@ -3,13 +3,13 @@ class Poem < ApplicationRecord
   belongs_to :author, class_name: :User, foreign_key: :user_id, counter_cache: true
   belongs_to :genre, counter_cache: true
   belongs_to :mood, counter_cache: true
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :users_who_liked, through: :likes, source: :user
   has_many :users_also_likes, through: :users_who_liked, source: :likes
   has_many :poems_also_liked, through: :users_also_likes, source: :poem
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :users_who_commented, through: :comments, source: :user
-  has_many :bookmarks
+  has_many :bookmarks, dependent: :destroy
   has_many :users_who_bookmarked, through: :bookmarks, source: :user
 
   validates :title, presence: true
@@ -188,4 +188,5 @@ class Poem < ApplicationRecord
   def user_bookmark(user_id)
     Bookmark.find_by(user_id: user_id, poem_id: self.id)
   end
+
 end

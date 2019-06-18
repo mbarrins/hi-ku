@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
-  def like_params
-    params.require(:like).permit(:user_id, :poem_id)
+  def comment_params
+    params.require(:comment).permit(:user_id, :poem_id, :content)
   end
 end
