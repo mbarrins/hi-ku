@@ -48,14 +48,19 @@ class Poem < ApplicationRecord
     line = 0
     words = self.line_1_split
     words.each do |word|
-    new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+      word_db = Word.find_by(word: word)
 
-
-    word_info = new_word.find{|k| k['word'] == word}
+      if word_db
+        line+= word_db.syllable
+      else
+        new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+        word_info = new_word.find{|k| k['word'] == word}
       if word_info
         line += word_info["numSyllables"]
+        Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
       else
         line += 99
+        end
       end
     end
    line
@@ -71,16 +76,24 @@ class Poem < ApplicationRecord
     line = 0
     words = self.line_2_split
     words.each do |word|
-    new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-    word_info = new_word.find{|k| k['word'] == word}
-    if word_info
-      line += word_info["numSyllables"]
-    else
-      line += 99
+      word_db = Word.find_by(word: word)
+
+      if word_db
+        line+= word_db.syllable
+      else
+        new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+        word_info = new_word.find{|k| k['word'] == word}
+      if word_info
+        line += word_info["numSyllables"]
+        Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
+      else
+        line += 99
+        end
+      end
     end
+   line
   end
-    line
-  end
+
 
   def line_3_split
     words = self.line_3.downcase.gsub(/[^a-z0-9\s]/i, '')
@@ -91,17 +104,23 @@ class Poem < ApplicationRecord
     line = 0
     words = self.line_3_split
     words.each do |word|
-    new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-    word_info = new_word.find{|k| k['word'] == word}
-    if word_info
-      line += word_info["numSyllables"]
-    else
-      line += 99
-    end
-  end
-    line
-  end
+      word_db = Word.find_by(word: word)
 
+      if word_db
+        line+= word_db.syllable
+      else
+        new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+        word_info = new_word.find{|k| k['word'] == word}
+      if word_info
+        line += word_info["numSyllables"]
+        Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
+      else
+        line += 99
+        end
+      end
+    end
+   line
+  end
 
   def no_of_comments
     self.comments.length
