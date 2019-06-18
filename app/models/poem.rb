@@ -18,6 +18,7 @@ class Poem < ApplicationRecord
   validates :line_3, presence: true
   validate :line_1_equals?, :line_2_equals?, :line_3_equals?
 
+
   strip_attributes collapse_spaces: true, replace_newlines: true
 
   def line_1_equals?
@@ -39,52 +40,66 @@ class Poem < ApplicationRecord
   end
 
   def line_1_split
-    words = self.line_1.split(" ")
-    words.each{|word| word.downcase}
+    words = self.line_1.downcase.gsub(/[^a-z0-9\s]/i, '')
+    words.split(" ")
   end
 
   def line_1_number
-    line = []
+    line = 0
     words = self.line_1_split
     words.each do |word|
-      new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-      word_info = new_word.find{|k| k['word'] == word}
-      line << word_info["numSyllables"]
+    new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+
+
+    word_info = new_word.find{|k| k['word'] == word}
+      if word_info
+        line += word_info["numSyllables"]
+      else
+        line += 99
+      end
     end
-    line.sum
+   line
   end
 
 
   def line_2_split
-    words = self.line_2.split(" ")
-    words.each{|word| word.downcase}
+    words = self.line_2.downcase.gsub(/[^a-z0-9\s]/i, '')
+    words.split(" ")
   end
 
   def line_2_number
-    line = []
+    line = 0
     words = self.line_2_split
     words.each do |word|
     new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
     word_info = new_word.find{|k| k['word'] == word}
-    line << word_info["numSyllables"]
+    if word_info
+      line += word_info["numSyllables"]
+    else
+      line += 99
     end
-    line.sum
+  end
+    line
   end
 
   def line_3_split
-    words = self.line_3.split(" ")
-    words.each{|word| word.downcase}
+    words = self.line_3.downcase.gsub(/[^a-z0-9\s]/i, '')
+    words.split(" ")
   end
 
   def line_3_number
-    line = []
+    line = 0
     words = self.line_3_split
     words.each do |word|
     new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
     word_info = new_word.find{|k| k['word'] == word}
-    line << word_info["numSyllables"]
+    if word_info
+      line += word_info["numSyllables"]
+    else
+      line += 99
     end
-    line.sum
+  end
+    line
   end
 
 

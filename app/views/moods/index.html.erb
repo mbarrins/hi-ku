@@ -22,8 +22,8 @@
     <div class="tile is-child notification is-danger">
       <p class="title is-5">Popular Moods</p>
       <% @moods.each do |mood| %>
-      <p><%= link_to mood.poems_count, mood %></p>
-      <% end %>  
+      <p> There are currently <%=mood.poems_count%> poems for a <%= link_to mood.name, mood %> mood</p>
+      <% end %>
     </div>
 
 
