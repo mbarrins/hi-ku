@@ -12,6 +12,7 @@
 <body>
 
 <% if logged_in? %>
+<div class="container">
   <nav class="navbar is-transparent">
     <div class="navbar-brand">
       <a class="navbar-item" href=""></a>
@@ -34,113 +35,69 @@
       <span></span>
     </div>
   </div>
-
-  <div id="navMenuTransparentExample" class="navbar-menu">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/home">
+      <%= image_tag "hiku_logo.png", width:"112", height:"28" %>
+    </a>
+  </div>
+  <div id="navMenuBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link  is-active" href=<%= home_path %>>
-            Home
-          </a>
-          <div class="navbar-dropdown is-boxed">
-            <a class="navbar-item " href="<%= users_path %>">
-              All Users
-            </a>
-            <a class="navbar-item " href="<%= new_user_path %>">
-              New Users
-            </a>
-          </div>
+        <div class="navbar-item is-hoverable">
+          <%= link_to "Home", home_path, class:"navbar-item" %>
         </div>
       </div>
     </div>
 
     <div id="navMenuTransparentExample" class="navbar-menu">
-        <div class="navbar-start">
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="">
+        <div class="navbar-end">
+          <div class="navbar-item has-dropdown is-hoverable" >
+            <a class="navbar-link is-active" href="">
               Haiku
             </a>
             <div class="navbar-dropdown is-boxed">
-              <a class="navbar-item " href="<%= poems_path %>">
+              <a class="navbar-item" href="<%= poems_path %>">
                 Browse Haiku
               </a>
-              <a class="navbar-item " href="<%= poems_path %>">
+              <a class="navbar-item" href="<%= poems_path %>">
                 Search Haiku
               </a>
-              <a class="navbar-item " href="<%= new_poem_path %>">
+              <a class="navbar-item" href="<%= new_poem_path %>">
                 Write New Haiku
               </a>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div id="navMenuTransparentExample" class="navbar-menu">
-        <div class="navbar-start">
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link  is-active" href="">
-                  Genres
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link is-active" href="">
+              User
+            </a>
+            <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item" href="<%= new_poem_path %>">
+              New Haiku
               </a>
-              <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item " href="<%= genres_path %>">
-                  All Genres
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="navMenuTransparentExample" class="navbar-menu">
-          <div class="navbar-start">
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link  is-active" href="">
-                  Moods
-                </a>
-                <div class="navbar-dropdown is-boxed">
-                  <a class="navbar-item " href="<%= moods_path %>">
-                  All Moods
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div id="navMenuTransparentExample" class="navbar-menu">
-          <div class="navbar-start">
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link  is-active" href="">
-                User
+              <a class="navbar-item" href="<%= my_haiku_path %>">
+              My Haiku
               </a>
-              <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item " href="<%= new_poem_path %>">
-                New Haiku
-                </a>
-                <a class="navbar-item " href="<%= my_haiku_path %>">
-                My Haiku
-                </a>
-                <a class="navbar-item " href="<%= my_saved_haiku_path %>">
-                My Saved Haiku
-                </a>
-                <a class="navbar-item " href="<%= my_liked_haiku_path %>">
-                My Liked Haiku
-                </a>
-                <a class="navbar-item " href="<%= my_comments_path %>">
-                My Comments
-                </a>
-                <a class="navbar-item " href="<%= profile_path %>">
-                Profile
-                </a>
-                <a class="navbar-item " href="<%= logout_path %>">
-                Sign out
-                </a>
-              </div>
+              <a class="navbar-item" href="<%= my_saved_haiku_path %>">
+              My Saved Haiku
+              </a>
+              <a class="navbar-item" href="<%= my_liked_haiku_path %>">
+              My Liked Haiku
+              </a>
+              <a class="navbar-item" href="<%= my_comments_path %>">
+              My Comments
+              </a>
+              <a class="navbar-item" href="<%= profile_path %>">
+              Profile
+              </a>
+              <a class="navbar-item" href="<%= logout_path %>">
+              Sign out
+              </a>
             </div>
           </div>
         </div>
       </div>
     </nav>
-
+  </div>
     <% end %>
 
 
