@@ -6,6 +6,9 @@ class WordsController < ApplicationController
       Word.create(word: word, syllable: syllables, user_id: current_user_id)
     end
     @poem = Poem.new(poems_params)
+    if !@poem.valid?
+      flash[:errors] = @poem.errors.full_messages
+    end
     @genres = Genre.all
     @moods = Mood.all
     render new_poem_path
