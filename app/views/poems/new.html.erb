@@ -47,10 +47,10 @@
     <div class="level">
       <div class="level-item has-text-centred">
         <% if !!@word_errors %>
-          <div>
-            <h2 class="subtitle">Add unknown syllables</h2>
-          </div>
             <%= form_tag :words do %>
+            <div class="field">
+                  <label class="label"><%= label_tag :title, "Add unknown syllables", class:'title is-4' %></<label>
+                </div>
               <% @word_errors.each do |word| %>
                 <div class="field">
                   <label class="label"><%= label_tag "#{word} - syllables:" %></<label>
