@@ -31,12 +31,12 @@ class PoemsController < ApplicationController
       @poem.save
       redirect_to @poem
     elsif !@word_errors.empty?
-      flash[:errors] = @poem.errors.full_messages
-      flash[:errors] << "Missing syllables for word(s), please add below."
+      flash.now[:errors] = @poem.errors.full_messages
+      flash.now[:errors] << "Missing syllables for word(s), please add below."
       render new_poem_path
     else
       @word_errors = nil
-      flash[:errors] = @poem.errors.full_messages
+      flash.now[:errors] = @poem.errors.full_messages
       render new_poem_path
     end
   end
