@@ -10,7 +10,7 @@ class PoemsController < ApplicationController
     @comments = @poem.comments
     @like = Like.new
     @bookmark = Bookmark.new
-    @poems = Kaminari.paginate_array(@poem.author.poems).page(page_params).per(12)
+    @poems = Kaminari.paginate_array(@poem.author.poems).page(page_params).per(6)
   end
 
   def new
