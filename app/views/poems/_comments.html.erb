@@ -1,0 +1,14 @@
+<div class="box">
+<div class="columns">
+  <div class="column">
+    <h2 class="subtitle">Comments </h2>
+  </div>
+</div>
+<hr/>
+<%= render 'comments/form' %>
+<hr/>
+<% @comments.each do |comment| %>
+  <%= comment.user.full_name %> says: <%= comment.content %>
+  <hr>
+<% end %>
+</div>
