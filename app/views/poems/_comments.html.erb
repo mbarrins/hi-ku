@@ -3,12 +3,10 @@
   <div class="column">
     <h2 class="subtitle">Comments </h2>
   </div>
-  <div>
-    <br>
-    <%= link_to "Add Comment", new_comment_path, class: "button" %>
-  </div>
 </div>
-<hr>
+<hr/>
+<%= render 'comments/form' %>
+<hr/>
 <% @comments.each do |comment| %>
   <%= comment.user.full_name %> says: <%= comment.content %>
   <hr>

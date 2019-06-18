@@ -3,11 +3,11 @@ class CommentsController < ApplicationController
   before_action :require_login
   
   def new
-    session[:return_to] ||= request.referer
     @comment = Comment.new
   end
 
   def create
+    session[:return_to] ||= request.referer
     Comment.create(comment_params)
     redirect_to session.delete(:return_to)
   end
@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
-  def like_params
-    params.require(:like).permit(:user_id, :poem_id)
+  def comment_params
+    params.require(:comment).permit(:user_id, :poem_id, :content)
   end
 end
