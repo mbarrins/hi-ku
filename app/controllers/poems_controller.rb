@@ -21,14 +21,17 @@ class PoemsController < ApplicationController
   end
 
   def create
-    @poem = Poem.create(poems_params)
-    if @poem.valid?
-      redirect_to @poem
-    else
+    @poem = Poem.new(poems_params)
+    @word_errors = @poem.check_db
+
+    if @word_errors || !@poem.valid?
       flash.now[:errors] = @poem.errors.full_messages
       @genres = Genre.all
       @moods = Mood.all
       render new_poem_path
+    else
+      @poem.save
+      redirect_to @poem
     end
   end
 

@@ -7,6 +7,7 @@
     </div>
   </div>
 </section>
+<<<<<<< HEAD
 
 <div class="level">
   <div class="level-item has-text-centred">
@@ -36,5 +37,69 @@
 
 
 <% end %>
+=======
+<br/><br/>
+<div class="columns">
+  <div class="column is-half">
+    <div class="level">
+      <div class="level-item has-text-centred">
+        <%= form_for @poem do |f| %>
+        <div class="field is-horizontal">
+          <%= f.label :title, class:'field-label' %>
+          <%= f.text_field :title, class:'field-body is-normal' %>
+        </div>
+        <div class="field is-horizontal">
+          <%= f.label :line_1, class:'field-label' %>
+          <%= f.text_field :line_1, placeholder: "Must contain five syllables", class:'field-body is-normal' %>
+        </div>
+        <div class="field is-horizontal">
+          <%= f.label :line_2, class:'field-label'  %>
+          <%= f.text_field :line_2, placeholder: "Must contain seven syllables", class:'field-body is-normal' %>
+        </div>
+        <div class="field is-horizontal">
+          <%= f.label :line_3, class:'field-label'  %>
+          <%= f.text_field :line_3, placeholder: "Must contain five syllables", class:'field-body is-normal' %>
+        </div>
+        <div class="field is-horizontal">
+          <%= f.label :genre, class:'field-label'  %>
+          <%= f.collection_select :genre_id, @genres, :id, :name, class:'field-body is-normal' %>
+        </div>
+        <div class="field is-horizontal">
+          <%= f.label :mood, class:'field-label'  %>
+          <%= f.collection_select :mood_id, @moods, :id, :name, class:'field-body is-normal' %>
+        </div>
+          <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+>>>>>>> dev
     </div>
   </div>
+  <div class="column is-half">
+    <div class="level">
+      <div class="level-item has-text-centred">
+        <% if !!@word_errors %>
+          <div>
+            <h2 class="subtitle">Add unknown syllables</h2>
+          </div>
+            <%= form_tag :words do %>
+              <% @word_errors.each do |word| %>
+                <div class="field">
+                  <label class="label"><%= label_tag "#{word} - syllables:" %></<label>
+                  <%= number_field_tag :"words[#{word}]", in: 1..19 %>
+                </div>
+              <% end %>
+              <%= hidden_field_tag :'poem[title]', "#{@poem.title}" %>
+              <%= hidden_field_tag :'poem[line_1]', "#{@poem.line_1}" %>
+              <%= hidden_field_tag :'poem[line_2]', "#{@poem.line_2}" %>
+              <%= hidden_field_tag :'poem[line_3]', "#{@poem.line_3}" %>
+              <%= hidden_field_tag :'poem[genre_id]', "#{@poem.genre_id}" %>
+              <%= hidden_field_tag :'poem[mood_id]', "#{@poem.genre_id}" %>
+              <%= hidden_field_tag :'poem[user_id]', "#{current_user_id}" %>
+              <%= submit_tag "Add syllables"%>
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
