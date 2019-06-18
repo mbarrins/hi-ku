@@ -3,11 +3,11 @@ class CommentsController < ApplicationController
   before_action :require_login
   
   def new
+    session[:return_to] ||= request.referer
     @comment = Comment.new
   end
 
   def create
-    session[:return_to] ||= request.referer
     Comment.create(comment_params)
     redirect_to session.delete(:return_to)
   end

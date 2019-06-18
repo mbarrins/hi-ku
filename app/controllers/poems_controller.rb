@@ -7,6 +7,10 @@ class PoemsController < ApplicationController
   end
 
   def show
+    @comments = @poem.comments
+    @like = Like.new
+    @bookmark = Bookmark.new
+    @poems = Kaminari.paginate_array(@poem.author.poems).page(page_params).per(12)
   end
 
   def new
@@ -45,5 +49,9 @@ class PoemsController < ApplicationController
 
   def set_selection
     @poem = Poem.find(params[:id])
+  end
+
+  def page_params
+    params[:page] ||= 1
   end
 end
