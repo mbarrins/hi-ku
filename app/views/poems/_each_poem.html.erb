@@ -27,7 +27,9 @@
             <div class="columns">
               <div class="column">
                 <p class="is-size-7 has-text-centered">
-                  <% if poem.liked_by_session_user?(current_user_id) %>
+                  <% if poem.user_id == current_user_id %>
+                    <%= link_to "#{poem.likes_count} Likes", poem,  class:'button is-small has-text-centered' %>
+                  <% elsif poem.liked_by_session_user?(current_user_id) %>
                     <%= form_for poem.user_like(current_user_id), method: :delete do %>
                       <%= submit_tag "Liked", class:'button is-small is-primary' %>
                     <% end %>
@@ -40,20 +42,27 @@
                   <% end %></p>
               </div>
               <div class="column">
-                <p class="is-size-7 has-text-centered">
-                <%= form_tag likes_path, method: :destroy do %>
-                      <%= hidden_field_tag :'like[:user_id]', value: "#{current_user_id}" %>
-                      <%= hidden_field_tag :'like[:poem_id]', value: "#{poem.id}" %>
-                      <%= submit_tag "Comment", class:'button is-small' %>
-                    <% end %></p>
+                  <% if poem.user_id == current_user_id %>
+                    <%= link_to "#{poem.comments_count} Comments", poem,  class:'button is-small has-text-centered' %>
+                  <% else %>
+                    <%= link_to "Comment", poem,  class:'button is-small has-text-centered' %>
+                  <% end %>
               </div>
               <div class="column">
                 <p class="is-size-7 has-text-centered">
-                <%= form_tag likes_path, method: :destroy do %>
-                      <%= hidden_field_tag :'like[:user_id]', value: "#{current_user_id}" %>
-                      <%= hidden_field_tag :'like[:poem_id]', value: "#{poem.id}" %>
-                      <%= submit_tag "Save", class:'button is-small' %>
-                    <% end %></p>
+                  <% if poem.user_id == current_user_id %>
+                    <%= link_to "#{poem.bookmarks_count} Saves", poem,  class:'button is-small has-text-centered' %>
+                  <% elsif poem.saved_by_session_user?(current_user_id) %>
+                    <%= form_for poem.user_bookmark(current_user_id), method: :delete do %>
+                      <%= submit_tag "Saved", class:'button is-small is-primary' %>
+                    <% end %>
+                  <% else %>
+                    <%= form_for @bookmark do |f| %>
+                      <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
+                      <%= f.hidden_field :poem_id, value: "#{poem.id}" %>
+                      <%= f.submit "Save", class:'button is-small tooltip' %>
+                    <% end %>
+                  <% end %></p>
               </div>
             </div>
 

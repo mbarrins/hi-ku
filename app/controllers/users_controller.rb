@@ -1,15 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_selection, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_selection, only: [:home, :show, :edit, :update, :destroy, :my_poems, :liked_poems, :my_comments, :saved_poems]
+  before_action :require_login, only: [:home, :index, :show, :edit, :update, :destroy]
+  before_action :new_like, :new_bookmark, only: [:home, :my_poems, :liked_poems, :my_comments, :saved_poems]
 
   def home
-    @like = Like.new
-    if !!params[:page]
-      @poems = Poem.page(params[:page]).per(12)
-    else
-      params[:page] = 1
-      @poems = Poem.page(1).per(12)
-    end
+    @poems = Kaminari.paginate_array(@user.suggested_poems).page(page_params).per(12)
   end
 
   def index
@@ -46,15 +41,46 @@ class UsersController < ApplicationController
 
   end
 
+  def my_poems
+    @poems = @user.poems.order(:title).page(page_params).per(12)
+  end
+
+  def liked_poems
+    @poems = @user.liked_poems.order(:title).page(page_params).per(12)
+  end
+
+  def my_comments
+    @poems = @user.commented_poems.order(:title).page(page_params).per(12)
+  end
+
+  def saved_poems
+    @poems = @user.bookmarked_poems.order(:title).page(page_params).per(12)
+  end
+
   private
 
   def set_selection
-    @user = User.find(params[:id])
+    if params[:id]
+      @user = User.find(params[:id])
+    else
+      @user = User.find(current_user_id)
+    end
   end
 
   def user_params
+    params[:user][:password].try(&:strip!)
     params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation)
   end
 
-end
+  def page_params
+    params[:page] ||= 1
+  end
 
+  def new_like
+    @like = Like.new
+  end
+
+  def new_bookmark
+    @bookmark = Bookmark.new
+  end
+end

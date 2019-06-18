@@ -5,8 +5,12 @@ class Poem < ApplicationRecord
   belongs_to :mood, counter_cache: true
   has_many :likes
   has_many :users_who_liked, through: :likes, source: :user
+  has_many :users_also_likes, through: :users_who_liked, source: :likes
+  has_many :poems_also_liked, through: :users_also_likes, source: :poem
   has_many :comments
   has_many :users_who_commented, through: :comments, source: :user
+  has_many :bookmarks
+  has_many :users_who_bookmarked, through: :bookmarks, source: :user
 
   validates :title, presence: true
   validates :line_1, presence: true
@@ -15,6 +19,7 @@ class Poem < ApplicationRecord
   validate :line_1_equals?, :line_2_equals?, :line_3_equals?
 
 
+  strip_attributes collapse_spaces: true, replace_newlines: true
 
   def line_1_equals?
     if self.line_1_number != 5
@@ -92,7 +97,7 @@ class Poem < ApplicationRecord
       line += word_info["numSyllables"]
     else
       line += 99
-    end 
+    end
   end
     line
   end
@@ -118,5 +123,21 @@ class Poem < ApplicationRecord
 
   def user_like(user_id)
     Like.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def commented_by_session_user?(user_id)
+    !!Comment.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def user_comment(user_id)
+    Comment.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def saved_by_session_user?(user_id)
+    !!Bookmark.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def user_bookmark(user_id)
+    Bookmark.find_by(user_id: user_id, poem_id: self.id)
   end
 end

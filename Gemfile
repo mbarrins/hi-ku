@@ -41,6 +41,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Adds Pagination
 gem 'kaminari'
 
+#Strips whitespace from attributes before validation
+gem "strip_attributes"
+
 #To allow seeding database
 gem 'faker'
 group :development, :test do
