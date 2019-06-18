@@ -21,6 +21,39 @@ class Poem < ApplicationRecord
 
   strip_attributes collapse_spaces: true, replace_newlines: true
 
+
+  def content
+    "#{self.line_1}
+    #{self.line_2}
+    #{self.line_3}"
+  end
+
+  def pre_check
+    check = self.content.downcase.gsub(/[^a-z0-9\s]/i, '')
+    check.split(" ")
+  end
+
+  def check_db
+    new_words = []
+    words = self.pre_check
+    words.each do |word|
+    word_db = Word.find_by(word: word)
+      if !word_db
+        new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+        word_info = new_word.find{|k| k['word'] == word}
+          if word_info
+              Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
+          else
+              new_words << word
+        end
+      end
+    end
+      new_words
+  end
+
+
+
+
   def line_1_equals?
     if self.line_1_number != 5
       errors.add(:line_1, "syllables must be equal to five")
@@ -49,22 +82,23 @@ class Poem < ApplicationRecord
     words = self.line_1_split
     words.each do |word|
       word_db = Word.find_by(word: word)
+      # byebug
+          if word_db
+            line+= word_db.syllable
+          else
+            new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+            word_info = new_word.find{|k| k['word'] == word}
+          if word_info
+            line += word_info["numSyllables"]
+            Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
+          else
+            line+= 99
 
-      if word_db
-        line+= word_db.syllable
-      else
-        new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-        word_info = new_word.find{|k| k['word'] == word}
-      if word_info
-        line += word_info["numSyllables"]
-        Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
-      else
-        line += 99
+            end
+          end
         end
+       line
       end
-    end
-   line
-  end
 
 
   def line_2_split
@@ -87,7 +121,7 @@ class Poem < ApplicationRecord
         line += word_info["numSyllables"]
         Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
       else
-        line += 99
+        line+= 99
         end
       end
     end
@@ -130,11 +164,6 @@ class Poem < ApplicationRecord
     self.likes.length
   end
 
-  def content
-    "#{self.line_1}
-    #{self.line_2}
-    #{self.line_3}"
-  end
 
   def liked_by_session_user?(user_id)
     !!Like.find_by(user_id: user_id, poem_id: self.id)

@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :bookmarked_poems, through: :bookmarks, source: :poem
   has_many :user_genres
   has_many :selected_genres, through: :user_genres, source: :genre
+  has_many :words
 
   validates :username, uniqueness: true, presence: true
   validates :email, uniqueness: true, presence: true
@@ -21,7 +22,7 @@ class User < ApplicationRecord
 
   has_secure_password
   strip_attributes collapse_spaces: true, replace_newlines: true
-  
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -39,7 +40,7 @@ class User < ApplicationRecord
   end
 
   def suggested_poems
-    self.liked_poems.map do |poem| 
+    self.liked_poems.map do |poem|
       poem.poems_also_liked.reject{|p| p.user_id == self.id || p.users_who_liked.include?(self)}
     end.flatten.map.with_object(Hash.new(0)) { |poem,h| h[poem] += 1 }.sort_by{|poem, count| count}.reverse.to_h.keys
   end
