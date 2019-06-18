@@ -1,16 +1,16 @@
 class User < ApplicationRecord
-  has_many :poems
+  has_many :poems, dependent: :destroy
   has_many :genres, -> {distinct}, through: :poems
   has_many :moods, -> {distinct}, through: :poems
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :liked_poems, through: :likes, source: :poem
   has_many :liked_genres, through: :liked_poems, source: :genre
   has_many :liked_moods, through: :liked_poems, source: :mood
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :commented_poems, through: :comments, source: :poem
-  has_many :bookmarks
+  has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_poems, through: :bookmarks, source: :poem
-  has_many :user_genres
+  has_many :user_genres, dependent: :destroy
   has_many :selected_genres, through: :user_genres, source: :genre
 
   validates :username, uniqueness: true, presence: true
