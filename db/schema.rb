@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_17_173504) do
+ActiveRecord::Schema.define(version: 2019_06_18_085304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,15 @@ ActiveRecord::Schema.define(version: 2019_06_17_173504) do
     t.integer "bookmarks_count"
   end
 
+  create_table "words", force: :cascade do |t|
+    t.string "word"
+    t.integer "syllable"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_words_on_user_id"
+  end
+
   add_foreign_key "bookmarks", "poems"
   add_foreign_key "bookmarks", "users"
   add_foreign_key "comments", "poems"
@@ -109,4 +118,5 @@ ActiveRecord::Schema.define(version: 2019_06_17_173504) do
   add_foreign_key "poems", "users"
   add_foreign_key "user_genres", "genres"
   add_foreign_key "user_genres", "users"
+  add_foreign_key "words", "users"
 end
