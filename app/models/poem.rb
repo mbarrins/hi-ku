@@ -159,4 +159,5 @@ class Poem < ApplicationRecord
   def user_bookmark(user_id)
     Bookmark.find_by(user_id: user_id, poem_id: self.id)
   end
+
 end

@@ -38,9 +38,16 @@ class User < ApplicationRecord
     Poem.where(genre: self.most_liked_genre, mood: self.most_liked_mood)
   end
 
-  def suggested_poems
+  def poems_liked_by_same
     self.liked_poems.map do |poem| 
       poem.poems_also_liked.reject{|p| p.user_id == self.id || p.users_who_liked.include?(self)}
     end.flatten.map.with_object(Hash.new(0)) { |poem,h| h[poem] += 1 }.sort_by{|poem, count| count}.reverse.to_h.keys
+  end
+
+  def suggested_poems
+    poems_all = Poem.all.order(created_at: :desc)
+    poems = self.poems_liked_by_same
+    poems_add = poems_all - poems
+    @poems = poems.zip(poems_add).flatten.compact
   end
 end
