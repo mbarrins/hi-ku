@@ -105,6 +105,6 @@ class PoemsController < ApplicationController
   end
 
   def searched
-    @searched = params[:title].present? || params[:body].present?
+    @searched = params[:title].present? || params[:body].present? || params[:genre_id].present? || params[:mood_id].present?
   end
 end
