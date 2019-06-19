@@ -40,6 +40,15 @@ class PoemsController < ApplicationController
     @moods = Mood.all
   end
 
+  def random_haiku
+    @page_title = "Haiku Randomizer"
+    @words = Word.all
+    @poem1 = Poem.all.sample
+    @poem2 = Poem.all.sample
+    @poem3 = Poem.all.sample
+
+  end
+
   def create
     @page_title = "New Haiku"
     @poem = Poem.new(poems_params)
