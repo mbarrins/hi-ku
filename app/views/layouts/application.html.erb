@@ -15,7 +15,7 @@
 <section class="section">
 <div class="container">
   <nav class="navbar is-transparent is-fixed-top">
-    
+
   <div class="navbar-brand">
     <a class="navbar-item" href="/home">
       <%= image_tag "hiku_logo.png", width:"112", height:"28" %>
@@ -44,6 +44,12 @@
               </a>
               <a class="navbar-item" href="<%= new_poem_path %>">
                 Write New Haiku
+              </a>
+              <a class="navbar-item" href="<%= haiku_history_path %>">
+                Haiku History
+              </a>
+              <a class="navbar-item" href="<%= random_haiku_path %>">
+                Random Haiku
               </a>
             </div>
           </div>
@@ -75,6 +81,9 @@
               </a>
             </div>
           </div>
+          <div class="navbar-item">
+            <a class="button is-medium is-warning" href="<%= logout_path %>"><span>Logout</span></a>
+          </div>
         </div>
       </div>
     </nav>
@@ -82,25 +91,34 @@
   </section>
 <% end %>
 
-    <div style="color:red">
-    <% if !flash[:notices].nil? %>
-      <% flash[:notices].each do |notice| %>
-        <p><%= notice %></p>
-      <% end %>
-    <% end %>
-    </div>
+<div style="color:red" text="has-text-centred">
+<% if !flash[:notices].nil? %>
+  <% flash[:notices].each do |notice| %>
+    <p><%= notice %></p>
+  <% end %>
+<% end %>
+</div>
 
-    <div style="color:red">
-    <% if !flash[:errors].nil? %>
-      <% flash[:errors].each do |error| %>
-        <p><%= error %></p>
-      <% end %>
-    <% end %>
-    </div>
+<div style="color:red" text="has-text-centred">
+<% if !flash[:errors].nil? %>
+  <% flash[:errors].each do |error| %>
+    <p><%= error %></p>
+  <% end %>
+<% end %>
+</div>
+
+
 
     <div class="container">
       <%= yield %>
     </div>
 
+    <br>
+
+<footer class="footer">
+      <div class="content has-text-centered">
+        <p><strong>Hi!ku</strong></p>
+    </div>
+</footer>
   </body>
 </html>

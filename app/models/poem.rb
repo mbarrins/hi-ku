@@ -91,7 +91,6 @@ class Poem < ApplicationRecord
         end
 
 
-
   def no_of_comments
     self.comments.length
   end
