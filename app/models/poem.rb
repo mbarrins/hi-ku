@@ -84,7 +84,6 @@ class Poem < ApplicationRecord
       words = self.line_split(line)
       words.each do |word|
         word_db = Word.find_by(word: word)
-        # byebug
             if word_db
               line_count+= word_db.syllable
             else
@@ -94,6 +93,11 @@ class Poem < ApplicationRecord
          line_count
         end
 
+
+  def random_1
+    poem = self.all.sample
+    poem.line_1
+  end
 
   def no_of_comments
     self.comments.length
