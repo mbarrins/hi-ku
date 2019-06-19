@@ -1,16 +1,33 @@
 class PoemsController < ApplicationController
   before_action :set_selection, only: [:show, :edit, :update, :destroy]
+  before_action :set_types, only: [:index, :show, :new, :create, :edit, :update]
+  before_action :new_items, only: [:index, :show]
   before_action :require_login
 
   def index
-    @poems = Poem.all
+    if !params[:filter] || (params[:filter][:genre_id]=='' && params[:filter][:mood_id]=='')
+      @poems = Poem.order(created_at: :desc).page(page_params).per(12)
+      @filter_genre_id = nil
+      @filter_mood_id = nil
+    else
+      filter = Hash.new
+      @filter_genre_id = params[:filter][:genre_id]
+      @filter_mood_id = params[:filter][:mood_id]
+
+      if @filter_genre_id != ''
+        filter[:genre_id] = @filter_genre_id
+      end
+      if @filter_mood_id != ''
+        filter[:mood_id] = @filter_mood_id
+      end
+
+      @poems = Poem.where(filter).order(created_at: :desc).page(page_params).per(12)
+
+    end
   end
 
   def show
     @comments = @poem.comments.order(created_at: :desc)
-    @like = Like.new
-    @bookmark = Bookmark.new
-    @comment = Comment.new
     @poems = Kaminari.paginate_array(@poem.author.poems).page(page_params).per(6)
   end
 
@@ -63,5 +80,16 @@ class PoemsController < ApplicationController
 
   def page_params
     params[:page] ||= 1
+  end
+
+  def set_types
+    @genres = Genre.all
+    @moods = Mood.all
+  end
+
+  def new_items
+    @like = Like.new
+    @bookmark = Bookmark.new
+    @comment = Comment.new
   end
 end
