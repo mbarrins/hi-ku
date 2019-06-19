@@ -13,14 +13,14 @@
   <div class="field">
       <div class="control is-expanded">
         <div class="select">
-          <%= collection_select :filter, :genre_id, @genres, :id, :name, prompt:'Select Genre', :selected => @filter_genre_id %>
+          <%= select_tag :genre_id, options_from_collection_for_select(@genres, :id, :name, params[:genre_id]), prompt:'Select Genre' %>
         </div>
     </div>
   </div>
   <div class="field">
     <div class="control is-expanded">
       <div class="select">
-        <%= collection_select :filter, :mood_id, @moods, :id, :name, prompt:'Select Mood', :selected => @filter_mood_id %>
+        <%= select_tag :mood_id, options_from_collection_for_select(@moods, :id, :name, params[:mood_id]), prompt:'Select Mood' %>
       </div>
     </div>
   </div>

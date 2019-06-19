@@ -4,12 +4,15 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
+
   get '/home', to: 'users#home'
   get '/profile', to: 'users#show'
   get '/my_haiku', to: 'users#my_poems'
   get '/my_liked_haiku', to: 'users#liked_poems'
   get '/my_comments', to: 'users#comments'
   get '/my_saved_haiku', to: 'users#saved_poems'
+
+  get 'poems/search', to: 'poems#search'
 
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :likes, only: [:create, :destroy]

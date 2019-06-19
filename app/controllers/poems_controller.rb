@@ -5,24 +5,27 @@ class PoemsController < ApplicationController
   before_action :require_login
 
   def index
-    if !params[:filter] || (params[:filter][:genre_id]=='' && params[:filter][:mood_id]=='')
-      @poems = Poem.order(created_at: :desc).page(page_params).per(12)
-      @filter_genre_id = nil
-      @filter_mood_id = nil
-    else
-      filter = Hash.new
-      @filter_genre_id = params[:filter][:genre_id]
-      @filter_mood_id = params[:filter][:mood_id]
+    @poems = Poem.genre_is(search_params[:genre_id]).mood_is(search_params[:mood_id]).title_contains(search_params[:title]).body_contains(search_params[:body]).order(created_at: :desc).page(page_params).per(12)
 
-      if @filter_genre_id != ''
-        filter[:genre_id] = @filter_genre_id
+    if @poems.empty?
+      flash.now[:errors] = ["Your search returned no results."]
+      render poems_search_path
+    elsif params[:title].present? || params[:body].present?
+
+      flash.now[:notices] = ['Showing Haiku where:']
+      
+      search_params.select{|param,value| value.present?}.each do |param, value|
+        case param
+        when 'title'
+          flash.now[:notices] << "Title contains #{value}"
+        when 'body'
+          flash.now[:notices] << "Body contains #{value}"
+        # when 'genre_id'
+        #   flash.now[:notices] << "With Genre of #{Genre.find(value).name}"
+        # when 'mood_id'
+        #   flash.now[:notices] << "With Mood of #{Mood.find(value).name}"
+        end
       end
-      if @filter_mood_id != ''
-        filter[:mood_id] = @filter_mood_id
-      end
-
-      @poems = Poem.where(filter).order(created_at: :desc).page(page_params).per(12)
-
     end
   end
 
@@ -68,6 +71,13 @@ class PoemsController < ApplicationController
 
   end
 
+  def search
+    @poem = Poem.new
+    @genres = Genre.all
+    @moods = Mood.all
+    params[:search] = Hash.new
+  end
+
   private
 
   def poems_params
@@ -91,5 +101,9 @@ class PoemsController < ApplicationController
     @like = Like.new
     @bookmark = Bookmark.new
     @comment = Comment.new
+  end
+
+  def search_params
+    params.permit(:title, :body, :genre_id, :mood_id)
   end
 end

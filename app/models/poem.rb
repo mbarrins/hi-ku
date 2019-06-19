@@ -18,6 +18,10 @@ class Poem < ApplicationRecord
   validates :line_3, presence: true
   validate :line_1_equals?, :line_2_equals?, :line_3_equals?
 
+  scope :title_contains, lambda{ |search| self.where("title ILIKE ?", "%#{search}%") if search.present?}
+  scope :body_contains, lambda{ |search| self.where("line_1 ILIKE :search OR line_1 ILIKE :search OR line_1 ILIKE :search", {search: "%#{search}%"}) if search.present?}
+  scope :genre_is, -> (genre_id) {where(genre_id: genre_id) if genre_id.present? }
+  scope :mood_is, -> (mood_id) {where(mood_id: mood_id) if mood_id.present? }
 
   strip_attributes collapse_spaces: true, replace_newlines: true
 
