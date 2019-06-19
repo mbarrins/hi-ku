@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
-
+  
+  get '/signup', to: 'users#new'
   get '/home', to: 'users#home'
   get '/haiku_history', to: 'users#haiku_history'
   get '/random_haiku', to: 'poems#random_haiku'

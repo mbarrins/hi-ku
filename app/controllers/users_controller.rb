@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     else
       flash.now[:errors] = @user.errors.full_messages
       @genres = Genre.all
-      render new_user_path
+      render signup_path
     end
   end
 

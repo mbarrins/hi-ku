@@ -6,6 +6,12 @@ class PoemsController < ApplicationController
   before_action :require_login
 
   def index
+    if @searched
+      @page_title = "Searched Haiku"
+    else
+      @page_title = "All Haiku"
+    end
+
     if params[:commit] == "Clear Search"
       params.delete(:title)
       params.delete(:body)
@@ -67,7 +73,7 @@ class PoemsController < ApplicationController
   end
 
   def search
-    @page_title = "Search all Haikus"
+    @page_title = "Search all Haiku"
     @poem = Poem.new
     @genres = Genre.all
     @moods = Mood.all
