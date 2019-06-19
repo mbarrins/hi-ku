@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       redirect_to home_path
     else
       (flash[:errors] ||= []) << "The username and/or password are not correct."
-      redirect_to new_user_path
+      redirect_to signup_path
     end
   end
 
