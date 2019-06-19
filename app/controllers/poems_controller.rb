@@ -2,26 +2,22 @@ class PoemsController < ApplicationController
   before_action :set_selection, only: [:show, :edit, :update, :destroy]
   before_action :set_types, only: [:index, :show, :new, :create, :edit, :update]
   before_action :new_items, only: [:index, :show]
+  before_action :searched, only: [:index]
   before_action :require_login
 
   def index
+    if params[:commit] == "Clear Search"
+      params.delete(:title)
+      params.delete(:body)
+      params.delete(:genre_id)
+      params.delete(:mood_id)
+    end
+
     @poems = Poem.genre_is(search_params[:genre_id]).mood_is(search_params[:mood_id]).title_contains(search_params[:title]).body_contains(search_params[:body]).order(created_at: :desc).page(page_params).per(12)
 
     if @poems.empty?
       flash.now[:errors] = ["Your search returned no results."]
       render poems_search_path
-    elsif params[:title].present? || params[:body].present?
-
-      flash.now[:notices] = ['Showing Haiku where:']
-      
-      search_params.select{|param,value| value.present?}.each do |param, value|
-        case param
-        when 'title'
-          flash.now[:notices] << "Title contains #{value}"
-        when 'body'
-          flash.now[:notices] << "Body contains #{value}"
-        end
-      end
     end
   end
 
@@ -101,5 +97,9 @@ class PoemsController < ApplicationController
 
   def search_params
     params.permit(:title, :body, :genre_id, :mood_id)
+  end
+
+  def searched
+    @searched = params[:title].present? || params[:body].present?
   end
 end
