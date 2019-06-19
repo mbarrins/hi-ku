@@ -91,6 +91,16 @@
   </section>
 <% end %>
 
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        <%= @page_title %>
+      </h1>
+    </div>
+  </div>
+</section>
+
 <div style="color:red" text="has-text-centred">
 <% if !flash[:notices].nil? %>
   <% flash[:notices].each do |notice| %>
@@ -108,8 +118,8 @@
 </div>
 
 
-
     <div class="container">
+
       <%= yield %>
     </div>
 

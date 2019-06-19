@@ -5,6 +5,7 @@ class PoemsController < ApplicationController
   before_action :require_login
 
   def index
+    @page_title = "All Poems"
     @poems = Poem.genre_is(search_params[:genre_id]).mood_is(search_params[:mood_id]).title_contains(search_params[:title]).body_contains(search_params[:body]).order(created_at: :desc).page(page_params).per(12)
 
     if @poems.empty?
@@ -13,7 +14,7 @@ class PoemsController < ApplicationController
     elsif params[:title].present? || params[:body].present?
 
       flash.now[:notices] = ['Showing Haiku where:']
-      
+
       search_params.select{|param,value| value.present?}.each do |param, value|
         case param
         when 'title'
@@ -30,17 +31,20 @@ class PoemsController < ApplicationController
   end
 
   def show
+    @page_title = @poem.title
     @comments = @poem.comments.order(created_at: :desc)
     @poems = Kaminari.paginate_array(@poem.author.poems).page(page_params).per(6)
   end
 
   def new
+    @page_title = "New Haiku"
     @poem = Poem.new
     @genres = Genre.all
     @moods = Mood.all
   end
 
   def create
+    @page_title = "New Haiku"
     @poem = Poem.new(poems_params)
     @word_errors = @poem.check_db
     @poem.valid?
@@ -72,11 +76,13 @@ class PoemsController < ApplicationController
   end
 
   def search
+    @page_title = "Search all Haikus"
     @poem = Poem.new
     @genres = Genre.all
     @moods = Mood.all
     params[:search] = Hash.new
   end
+
 
   private
 

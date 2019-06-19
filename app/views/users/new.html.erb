@@ -1,12 +1,3 @@
-<section class="hero is-primary is-bold">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        Create New User
-      </h1>
-    </div>
-  </div>
-</section>
 
 
 <%= form_for @user do |f| %>
@@ -25,6 +16,14 @@
   <div>
     <%= f.label :email %>
     <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.label :motto %>
+    <%= f.text_field :motto %>
+  </div>
+  <div>
+    <%= f.label :bio %>
+    <%= f.text_area :bio %>
   </div>
   <div>
     <%= f.label :password %>

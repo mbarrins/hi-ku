@@ -12,9 +12,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    @page_title = "Author Profile"
   end
 
   def new
+    @page_title = "Register New User"
     @user = User.new
     @genres = Genre.all
   end
@@ -36,25 +38,33 @@ class UsersController < ApplicationController
 
   def update
   end
-  
+
   def destroy
 
   end
 
   def my_poems
+    @page_title = "My Poems"
     @poems = @user.poems.order(:title).page(page_params).per(12)
   end
 
   def liked_poems
+    @page_title = "My Liked Poems"
     @poems = @user.liked_poems.order(:title).page(page_params).per(12)
   end
 
   def my_comments
+    @page_title = "My Comments"
     @poems = @user.commented_poems.order(:title).page(page_params).per(12)
   end
 
   def saved_poems
+    @page_title = "My Saved Poems"
     @poems = @user.bookmarked_poems.order(:title).page(page_params).per(12)
+  end
+
+  def haiku_history
+    @page_title = "History"
   end
 
   private
@@ -69,7 +79,7 @@ class UsersController < ApplicationController
 
   def user_params
     params[:user][:password].try(&:strip!)
-    params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation, :bio, :motto)
   end
 
   def page_params

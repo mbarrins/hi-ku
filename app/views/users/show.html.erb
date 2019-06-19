@@ -1,32 +1,28 @@
-<section class="hero is-primary is-bold">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        <h1><%= @user.full_name %></h1>
-      </h1>
+
+<br>
+
+<div class="tile is-ancestor">
+  <div class="tile is-vertical">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child notification is-danger">
+          <p class="title"><%=@user.first_name %> <%= @user.last_name %></p>
+          <p> <%= @user.motto %> </p>
+        </article>
+        <article class="tile is-child notification is-warning">
+          <p class="title is-4">All Poems by this Author</p>
+
+          <% @user.poems.each do |poem| %>
+          <p> <%= link_to poem.title, poem %> for a <%=link_to poem.mood.name, poem.mood %> mood, liked by <%= poem.likes_count %> other users!<br></p>
+          <% end %>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child notification is-info">
+          <p class="title">Bio</p>
+          <p><%= @user.bio %></p>
+        </article>
+      </div>
     </div>
   </div>
-</section>
-
-<br>
-
-<ul>
-  <li><p>Username: <%= @user.username %></p></li><br>
-  <li><p>Email Address: <%= @user.email %></p></li><br>
-</ul>
-
-<h4 class="title is-4">All Poems by this Author</h4>
-
-<% @user.poems.each do |poem| %>
-  <%= link_to poem.title, poem %> <br>
-<% end %>
-
-
-
-
-<br>
-
-<h4 class="title is-4">Included Genres in this Authors work</h4>
-<% @user.genres.each do |genre| %>
-  <%= link_to genre.name, genre %>
-<% end %>
+</div>

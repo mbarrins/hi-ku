@@ -1,12 +1,4 @@
-<section class="hero is-primary is-bold">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        New Poem
-      </h1>
-    </div>
-  </div>
-</section>
+
 <br/><br/>
 <div class="columns">
   <div class="column is-half">
@@ -78,7 +70,7 @@
               <% @word_errors.each do |word| %>
                 <div class="field">
                   <label class="label"><%= label_tag "#{word} - syllables:" %></<label>
-                  <%= number_field_tag :"words[#{word}]", in: 1..19 %>
+                  <%= number_field_tag :"words[#{word}]", nil, in: 1..19 %>
                 </div>
               <% end %>
               <%= hidden_field_tag :'poem[title]', "#{@poem.title}" %>
