@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
+
   get '/home', to: 'users#home'
   get '/haiku_history', to: 'users#haiku_history'
   get '/random_haiku', to: 'poems#random_haiku'
@@ -12,6 +13,8 @@ Rails.application.routes.draw do
   get '/my_liked_haiku', to: 'users#liked_poems'
   get '/my_comments', to: 'users#comments'
   get '/my_saved_haiku', to: 'users#saved_poems'
+
+  get 'poems/search', to: 'poems#search'
 
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :likes, only: [:create, :destroy]

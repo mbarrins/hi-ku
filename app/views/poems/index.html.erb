@@ -7,7 +7,28 @@
     </div>
   </div>
 </section>
-
-<% @poems.each do |poem| %>
-  <p><%= link_to poem.title, poem %></p>
+<br/>
+<%= form_tag( '/poems', :method => :get ) do %>
+  <p class='subtitle' >Filter Haiku</p>
+  <div class="field">
+      <div class="control is-expanded">
+        <div class="select">
+          <%= select_tag :genre_id, options_from_collection_for_select(@genres, :id, :name, params[:genre_id]), prompt:'Select Genre' %>
+        </div>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control is-expanded">
+      <div class="select">
+        <%= select_tag :mood_id, options_from_collection_for_select(@moods, :id, :name, params[:mood_id]), prompt:'Select Mood' %>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <%= submit_tag "Filter Haiku", class:'button is-link' %>
+    </div>
+  </div>
 <% end %>
+
+<%= render 'poems/each_poem' %>
