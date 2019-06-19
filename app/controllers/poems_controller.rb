@@ -20,10 +20,6 @@ class PoemsController < ApplicationController
           flash.now[:notices] << "Title contains #{value}"
         when 'body'
           flash.now[:notices] << "Body contains #{value}"
-        # when 'genre_id'
-        #   flash.now[:notices] << "With Genre of #{Genre.find(value).name}"
-        # when 'mood_id'
-        #   flash.now[:notices] << "With Mood of #{Mood.find(value).name}"
         end
       end
     end
