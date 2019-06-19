@@ -1,6 +1,6 @@
 <%= form_for @comment do |f| %>
-  <p class="has-text-right">
-    <%= f.text_area :content, size: "77x4" %>
+  <p class="field control has-text-right">
+    <%= f.text_area :content, placeholder: "Comment", class: "field-body input is-medium is-info" %>
   </p>
   <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
   <%= f.hidden_field :poem_id, value: "#{@poem.id}" %>

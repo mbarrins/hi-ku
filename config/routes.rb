@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   get '/home', to: 'users#home'
+  get '/haiku_history', to: 'users#haiku_history'
+  get '/random_haiku', to: 'poems#random_haiku'
   get '/profile', to: 'users#show'
   get '/my_haiku', to: 'users#my_poems'
   get '/my_liked_haiku', to: 'users#liked_poems'

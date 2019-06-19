@@ -13,36 +13,60 @@
     <div class="level">
       <div class="level-item has-text-centred">
         <%= form_for @poem do |f| %>
-        <div class="field is-horizontal">
+
+
+        <div class="field is-horizontal control has-icons-right">
           <%= f.label :title, class:'field-label' %>
-          <%= f.text_field :title, class:'field-body is-normal', required: true %>
+          <%= f.text_field :title, placeholder: "Title", class:'field-body input is-warning is-large is-rounded', required: true %>
+          <span class="icon is-small is-right">
+          <i class="fas fa-pen-fancy"></i>
+          </span>
         </div>
-        <div class="field is-horizontal">
-          <%= f.label :line_1, class:'field-label' %>
-          <%= f.text_field  :line_1, placeholder: "Must contain five syllables", class:'field-body is-normal', required: true %>
+
+        <div class="field is-horizontal control has-icons-right">
+            <%= f.label :line_1, class:'field-label' %>
+            <%= f.text_field :line_1, placeholder: "Five Syllables", class:'field-body input is-info', required: true %>
+            <span class="icon is-small is-right">
+            <i class="fas fa-pen-fancy"></i>
+            </span>
         </div>
-        <div class="field is-horizontal">
-          <%= f.label :line_2, class:'field-label'  %>
-          <%= f.text_field :line_2, placeholder: "Must contain seven syllables", class:'field-body is-normal', required: true %>
+
+
+        <div class="field is-horizontal control has-icons-right">
+            <%= f.label :line_2, class:'field-label'  %>
+            <%= f.text_field :line_2, placeholder: "Seven Syllables", class:'field-body input is-danger', required: true %>
+            <span class="icon is-small is-right">
+            <i class="fas fa-pen-fancy"></i>
+            </span>
         </div>
-        <div class="field is-horizontal">
+
+        <div class="field is-horizontal control has-icons-right">
           <%= f.label :line_3, class:'field-label'  %>
-          <%= f.text_field :line_3, placeholder: "Must contain five syllables", class:'field-body is-normal', required: true %>
+          <%= f.text_field :line_3, placeholder: "Five Syllables", class:'field-body input is-primary', required: true %>
+          <span class="icon is-small is-right">
+          <i class="fas fa-pen-fancy"></i>
+          </span>
         </div>
-        <div class="field is-horizontal">
+
+
+        <div class="field control select is-horizontal is-info">
           <%= f.label :genre, class:'field-label'  %>
           <%= f.collection_select :genre_id, @genres, :id, :name, class:'field-body is-normal' %>
         </div>
-        <div class="field is-horizontal">
+
+        <div class="field control select is-horizontal is-danger">
           <%= f.label :mood, class:'field-label'  %>
           <%= f.collection_select :mood_id, @moods, :id, :name, class:'field-body is-normal' %>
         </div>
+
           <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
+
           <%= f.submit %>
-        <% end %>
+          <% end %>
+
+        </div>
       </div>
     </div>
-  </div>
   <div class="column is-half">
     <div class="level">
       <div class="level-item has-text-centred">
