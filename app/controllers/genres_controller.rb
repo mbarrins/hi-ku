@@ -9,7 +9,8 @@ class GenresController < ApplicationController
     if !@genre
       flash[:errors] = ["That genre could not be found, please try another page."]
       redirect_to (request.referer || root_path)
+    else
+      @page_title = @genre.name
     end
-    @page_title = @genre.name
   end
 end
