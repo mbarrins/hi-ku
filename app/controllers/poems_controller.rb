@@ -74,6 +74,9 @@ class PoemsController < ApplicationController
 
   def edit
     @page_title = "Edit Poem"
+    if !!params[:confirm_delete]
+      @confirm_delete = true
+    end
   end
 
   def update
