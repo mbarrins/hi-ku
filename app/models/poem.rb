@@ -107,7 +107,6 @@ class Poem < ApplicationRecord
     self.likes.length
   end
 
-
   def liked_by_session_user?(user_id)
     !!Like.find_by(user_id: user_id, poem_id: self.id)
   end
@@ -122,6 +121,10 @@ class Poem < ApplicationRecord
 
   def user_comment(user_id)
     Comment.find_by(user_id: user_id, poem_id: self.id)
+  end
+
+  def user_comments(user_id)
+    Comment.where(user_id: user_id, poem_id: self.id)
   end
 
   def saved_by_session_user?(user_id)

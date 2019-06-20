@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :liked_genres, through: :liked_poems, source: :genre
   has_many :liked_moods, through: :liked_poems, source: :mood
   has_many :comments, dependent: :destroy
-  has_many :commented_poems, through: :comments, source: :poem
+  has_many :commented_poems, -> {distinct}, through: :comments, source: :poem
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_poems, through: :bookmarks, source: :poem
   has_many :words

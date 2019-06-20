@@ -120,7 +120,11 @@ class PoemsController < ApplicationController
   end
 
   def set_selection
-    @poem = Poem.find(params[:id])
+    @poem = Poem.find(params[:id]) rescue nil
+    if !@poem
+      flash[:errors] = ["That poem could not be found, please try another page."]
+      redirect_to (request.referer || root_path)
+    end
   end
 
   def page_params

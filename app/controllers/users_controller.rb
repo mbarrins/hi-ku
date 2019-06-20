@@ -44,14 +44,24 @@ class UsersController < ApplicationController
   end
 
   def update
+    if !!@user.try(:authenticate, params[:user][:password])
+      params[:user].delete(:password)
+    end
+
     @user.update(user_params)
+
     if @user.valid?
-      session[:user_id] = @user.id
-      flash[:notices] = ["Your Profile has been updated"]
-      redirect_to user_path(@user)
+      flash[:notices] = ["Your details have been updated"]
+
+      if request.referer[-9..-1] == "/settings"
+        redirect_to settings_path
+      else
+        redirect_to @user
+      end
     else
-      flash.now[:errors] = @user.errors.full_messages
-      redirect_to login_path
+      session[:return_to] ||= request.referer
+      flash[:errors] = @user.errors.full_messages
+      redirect_to session.delete(:return_to)
     end
   end
 
@@ -63,6 +73,7 @@ class UsersController < ApplicationController
   end
 
   def settings
+    # byebug
     @page_title = "Change Account Settings"
     @submit_button_text = "Update"
     @cancel_button_text = "Cancel"
@@ -79,8 +90,9 @@ class UsersController < ApplicationController
     @poems = @user.liked_poems.order(:title).page(page_params).per(12)
   end
 
-  def my_comments
+  def comments
     @page_title = "My Comments"
+    #@comments = @user.comments.order(updated_at: :desc).page(page_params).per(12)
     @poems = @user.commented_poems.order(:title).page(page_params).per(12)
   end
 
@@ -97,14 +109,18 @@ class UsersController < ApplicationController
 
   def set_selection
     if params[:id]
-      @user = User.find(params[:id])
+      @user = User.find(params[:id]) rescue nil
+      if !@user
+        flash[:errors] = ["That author could not be found, please try another page."]
+        redirect_to (request.referer || root_path)
+      end
     else
       @user = User.find(current_user_id)
     end
   end
 
   def current_user_only
-    if !@user.id == current_user_id
+    if @user.id != current_user_id
       redirect_to @user
     end
   end
