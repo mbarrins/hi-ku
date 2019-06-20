@@ -10,8 +10,6 @@ class User < ApplicationRecord
   has_many :commented_poems, through: :comments, source: :poem
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_poems, through: :bookmarks, source: :poem
-  has_many :user_genres, dependent: :destroy
-  has_many :selected_genres, through: :user_genres, source: :genre
   has_many :words
 
   validates :username, uniqueness: true, presence: true

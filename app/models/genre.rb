@@ -1,8 +1,6 @@
 class Genre < ApplicationRecord
   has_many :poems
   has_many :authors, through: :poems
-  has_many :user_genres
-  has_many :users, through: :user_genres
   has_many :likes, through: :poems
 
   def top_poems(no_of_poems)

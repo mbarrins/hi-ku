@@ -1,9 +1,10 @@
 class PoemsController < ApplicationController
+  before_action :require_login
   before_action :set_selection, only: [:show, :edit, :update, :destroy]
   before_action :set_types, only: [:index, :show, :new, :create, :edit, :update]
   before_action :new_items, only: [:index, :show]
   before_action :searched, only: [:index]
-  before_action :require_login
+  
 
   def index
     if @searched
