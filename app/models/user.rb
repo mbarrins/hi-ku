@@ -44,9 +44,13 @@ class User < ApplicationRecord
   end
 
   def suggested_poems
-    poems_all = Poem.all.order(created_at: :desc)
-    poems = self.poems_liked_by_same
-    poems_add = poems_all - poems
-    @poems = poems.zip(poems_add).flatten.compact
+    if !self.likes_count || self.likes_count == 0
+      @poems = Poem.all
+    else
+      poems_all = Poem.all.order(created_at: :desc)
+      poems = self.poems_liked_by_same
+      poems_add = poems_all - poems
+      @poems = poems.zip(poems_add).flatten.compact
+    end
   end
 end
