@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     @page_title = "Log in"
 
     if logged_in?
-      redirect_to welcome_path
+      redirect_to home_path
     end
   end
 

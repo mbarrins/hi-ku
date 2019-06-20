@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       session[:user_id] = @user.id
-      redirect_to home_path
+      redirect_to welcome_path
     else
       flash.now[:errors] = @user.errors.full_messages
       render 'new'
