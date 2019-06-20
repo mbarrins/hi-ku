@@ -52,10 +52,19 @@
           <%= f.collection_select :mood_id, @moods, :id, :name, class:'field-body is-normal' %>
         </div>
 
+        <div>
+
           <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
 
           <%= f.submit %>
           <% end %>
+
+          <br>
+          <br>
+
+          <%= button_to "Delete this Poem", @poem, :method => :delete, data: {confirm:"Are You Sure?!"} %>
+
+        </div>
 
         </div>
       </div>

@@ -14,6 +14,7 @@
           <p class="control">
           <% if @user.id == current_user_id %>
             <%= link_to "Edit Your Profile", edit_user_path(@user),  class:'button has-text-centered is-small' %>
+            
           <% end %>
           </p>
 
@@ -21,8 +22,20 @@
         <article class="tile is-child notification is-warning">
           <p class="title is-4">All Poems by this Author</p>
 
+          <% if @user.poems.empty? %>
+
+          <%= link_to "No Haikus yet! Write your first!", new_poem_path %>
+
+          <% else %>
+
           <% @user.poems.each do |poem| %>
           <p> <%= link_to poem.title, poem %> for a <%=link_to poem.mood.name, poem.mood %> mood, liked by <%= poem.likes_count %> other users!<br></p>
+          <% end %>
+
+          <br>
+          <br>
+
+          <%= link_to "Write a new Haiku!", new_poem_path %>
           <% end %>
         </article>
       </div>

@@ -4,7 +4,7 @@ class PoemsController < ApplicationController
   before_action :set_types, only: [:index, :show, :new, :create, :edit, :update]
   before_action :new_items, only: [:index, :show]
   before_action :searched, only: [:index]
-  
+
 
   def index
     if @searched
@@ -85,6 +85,7 @@ class PoemsController < ApplicationController
 
     if @word_errors.empty? && @poem.valid?
       @poem.save
+      flash[:notices] = ["Your Haiku has been updated"]
       redirect_to @poem
     elsif !@word_errors.empty?
       flash.now[:errors] = @poem.errors.full_messages
@@ -99,7 +100,8 @@ class PoemsController < ApplicationController
 
   def destroy
     @poem.destroy
-    redirect_to poems_path
+    flash[:notices] = ["Haiku has been deleted"]
+    redirect_to my_haiku_path
   end
 
   def search

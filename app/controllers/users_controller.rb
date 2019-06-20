@@ -47,6 +47,7 @@ class UsersController < ApplicationController
     @user.update(user_params)
     if @user.valid?
       session[:user_id] = @user.id
+      flash[:notices] = ["Your Profile has been updated"]
       redirect_to user_path(@user)
     else
       flash.now[:errors] = @user.errors.full_messages
@@ -55,6 +56,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    User.destroy(@user.id)
+    session.delete :user_id
+    flash[:notices] = ["Your Profile has been deleted"]
+    redirect_to signup_path
   end
 
   def settings

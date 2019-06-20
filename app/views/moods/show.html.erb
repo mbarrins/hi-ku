@@ -1,17 +1,23 @@
-<section class="hero is-primary is-bold">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        <%= @mood.name %>
-      </h1>
-    </div>
+
+<br>
+<br>
+
+
+<div class="tile is-acestor">
+  <div class="tile">
+
+
+    <div class="tile is-parent-verticle">
+      <article class="tile is-child is notification is-warning">
+
+            <% if !@mood.top_poems(5).empty? %>
+            <p class="title">Top Poems</p>
+            <% @mood.top_poems(5).each do |poem| %>
+              <p><%= link_to poem.title, poem %> by <%=poem.author.full_name%> </p>
+            <% end %>
+            <% end %>
+        </article>
+      </div>
+
   </div>
-</section>
-
-
-<% if !@mood.top_poems(5).empty? %>
-<h2>Poems</h2>
-<% @mood.top_poems(5).each do |poem| %>
-  <p><%= link_to poem.title, poem %></p>
-<% end %>
-<% end %>
+</div>

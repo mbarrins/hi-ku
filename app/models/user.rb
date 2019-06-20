@@ -37,8 +37,6 @@ class User < ApplicationRecord
     Poem.where(genre: self.most_liked_genre, mood: self.most_liked_mood)
   end
 
-
-
   def poems_liked_by_same
     self.liked_poems.map do |poem|
       poem.poems_also_liked.reject{|p| p.user_id == self.id || p.users_who_liked.include?(self)}
