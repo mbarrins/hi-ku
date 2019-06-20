@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :bookmarks
+
   root 'sessions#new'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
@@ -15,16 +15,17 @@ Rails.application.routes.draw do
   get '/my_liked_haiku', to: 'users#liked_poems'
   get '/my_comments', to: 'users#comments'
   get '/my_saved_haiku', to: 'users#saved_poems'
+  resources :users, only: [:show, :create, :update, :destroy]
 
   get 'poems/search', to: 'poems#search'
+  resources :poems
 
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :likes, only: [:create, :destroy]
-  resources :poems
+  resources :bookmarks, only: [:create, :destroy]
+  resources :words, only: [:create]
   resources :moods, only: [:index, :show]
   resources :genres, only: [:index, :show]
-  resources :users
-  resources :words, only: [:create]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

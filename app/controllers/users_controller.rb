@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_selection, only: [:home, :show, :edit, :update, :destroy, :my_poems, :liked_poems, :my_comments, :saved_poems, :settings]
   before_action :require_login, except: [:new, :create]
+  before_action :set_selection, except: [:new, :create, :index]
   before_action :new_like, :new_bookmark, only: [:home, :my_poems, :liked_poems, :my_comments, :saved_poems]
   before_action :current_user_only, except: [:show, :new, :create]
 

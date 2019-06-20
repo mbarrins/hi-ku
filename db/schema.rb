@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_19_145702) do
+ActiveRecord::Schema.define(version: 2019_06_20_093542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,15 +75,6 @@ ActiveRecord::Schema.define(version: 2019_06_19_145702) do
     t.index ["user_id"], name: "index_poems_on_user_id"
   end
 
-  create_table "user_genres", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "genre_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["genre_id"], name: "index_user_genres_on_genre_id"
-    t.index ["user_id"], name: "index_user_genres_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "first_name"
@@ -118,7 +109,5 @@ ActiveRecord::Schema.define(version: 2019_06_19_145702) do
   add_foreign_key "poems", "genres"
   add_foreign_key "poems", "moods"
   add_foreign_key "poems", "users"
-  add_foreign_key "user_genres", "genres"
-  add_foreign_key "user_genres", "users"
   add_foreign_key "words", "users"
 end
