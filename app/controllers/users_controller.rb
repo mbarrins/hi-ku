@@ -73,11 +73,14 @@ class UsersController < ApplicationController
   end
 
   def settings
-    # byebug
     @page_title = "Change Account Settings"
-    @submit_button_text = "Update"
-    @cancel_button_text = "Cancel"
+    @submit_button_text = "Save Changes"
+    @cancel_button_text = "Cancel Changes"
     @cancel_path = @user
+    @allow_delete = true
+    if !!params[:confirm_delete]
+      @confirm_delete = true
+    end
   end
 
   def my_poems
