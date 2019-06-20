@@ -86,8 +86,9 @@ class UsersController < ApplicationController
     @poems = @user.liked_poems.order(:title).page(page_params).per(12)
   end
 
-  def my_comments
+  def comments
     @page_title = "My Comments"
+    #@comments = @user.comments.order(updated_at: :desc).page(page_params).per(12)
     @poems = @user.commented_poems.order(:title).page(page_params).per(12)
   end
 
