@@ -105,6 +105,10 @@ class UsersController < ApplicationController
     @page_title = "History"
   end
 
+  def welcome
+    @page_title = "Welcome to Hi!Ku"
+  end
+
   private
 
   def set_selection

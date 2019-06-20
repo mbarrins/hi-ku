@@ -94,11 +94,6 @@ class Poem < ApplicationRecord
         end
 
 
-  def random_1
-    poem = self.all.sample
-    poem.line_1
-  end
-
   def no_of_comments
     self.comments.length
   end

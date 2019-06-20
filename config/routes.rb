@@ -9,17 +9,14 @@ Rails.application.routes.draw do
   get '/home', to: 'users#home'
   get '/haiku_history', to: 'users#haiku_history'
   get '/random_haiku', to: 'poems#random_haiku'
+  get '/welcome', to: 'users#welcome'
   get '/profile', to: 'users#show'
   get '/settings', to: 'users#settings'
   get '/my_haiku', to: 'users#my_poems'
   get '/my_liked_haiku', to: 'users#liked_poems'
   get '/my_comments', to: 'users#comments'
   get '/my_saved_haiku', to: 'users#saved_poems'
-<<<<<<< HEAD
-  resources :users, only: [:edit, :show, :create, :update, :destroy]
-=======
   resources :users, :path => "authors", only: [:show, :edit, :create, :update, :destroy]
->>>>>>> 256e369e5f2b9bacb48fe2906e014e2904e6506b
 
   get 'poems/search', to: 'poems#search'
   resources :poems

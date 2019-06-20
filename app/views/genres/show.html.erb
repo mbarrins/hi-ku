@@ -1,9 +1,42 @@
 
 
 
-<% if !@genre.top_poems(5).empty? %>
+<br>
+<br>
 
-<% @genre.top_poems(5).each do |poem| %>
-  <p><%= link_to poem.title, poem %></p>
-<% end %>
-<% end %>
+
+<div class="tile is-acestor">
+  <div class="tile">
+
+
+    <div class="tile is-parent">
+      <article class="tile is-child notification is-info">
+
+        <p class="title">Top <%=@genre.name %> poems!</p>
+
+            <% if !@genre.top_poems(5).empty? %>
+
+            <% @genre.top_poems(5).each do |poem| %>
+            <p><%= link_to poem.title, poem %> by <%= link_to poem.author.full_name, poem.author %> </p>
+            <% end %>
+            <% end %>
+        </article>
+      </div>
+
+      <div class="tile is-parent">
+        <article class="tile is-child is notification is-warning">
+              <p class="title">A <%=@genre.name %> poem just for you!</p>
+
+              <p><%= link_to @poem_1.line_1, @poem_1%></p>
+              <p><%= link_to @poem_2.line_2, @poem_2%></p>
+              <p><%= link_to @poem_3.line_3, @poem_3%></p>
+
+              <br>
+
+              <p>by <%=link_to @poem_1.author.first_name, @poem_1.author %>, <%=link_to @poem_2.author.first_name, @poem_2.author %> and <%=link_to @poem_3.author.first_name, @poem_3.author %> </p>
+
+          </article>
+        </div>
+
+  </div>
+</div>

@@ -13,8 +13,8 @@
 
           <p class="control">
           <% if @user.id == current_user_id %>
-            <%= link_to "Edit Your Profile", edit_user_path(@user),  class:'button has-text-centered is-small' %>
-            
+            <%= link_to "Edit Your Profile", edit_user_path(@user), class:'button has-text-centered is-small' %>
+
           <% end %>
           </p>
 
@@ -29,7 +29,7 @@
           <% else %>
 
           <% @user.poems.each do |poem| %>
-          <p> <%= link_to poem.title, poem %> for a <%=link_to poem.mood.name, poem.mood %> mood, liked by <%= poem.likes_count %> other users!<br></p>
+          <p> <%= link_to poem.title, poem %> for a <%=link_to poem.mood.name, poem.mood %> mood<br></p>
           <% end %>
 
           <br>

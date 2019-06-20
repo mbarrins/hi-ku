@@ -6,4 +6,6 @@ class Mood < ApplicationRecord
     self.poems.order(likes_count: :desc).limit(no_of_poems)
   end
 
+
+
 end

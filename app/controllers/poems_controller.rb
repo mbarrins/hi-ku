@@ -43,7 +43,6 @@ class PoemsController < ApplicationController
 
   def random_haiku
     @page_title = "Haiku Randomizer"
-    @words = Word.all
     @poem1 = Poem.all.sample
     @poem2 = Poem.all.sample
     @poem3 = Poem.all.sample
