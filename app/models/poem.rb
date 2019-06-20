@@ -11,7 +11,9 @@ class Poem < ApplicationRecord
   has_many :users_who_commented, through: :comments, source: :user
   has_many :bookmarks, dependent: :destroy
   has_many :users_who_bookmarked, through: :bookmarks, source: :user
-
+  has_many :inspired_poems, class_name: :Poem, foreign_key: :inspired_by_id
+  belongs_to :inspired_by, class_name: :Poem, counter_cache: :inspired_poems_count
+  
   validates :title, presence: true
   validates :line_1, presence: true
   validates :line_2, presence: true

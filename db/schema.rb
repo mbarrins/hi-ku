@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_20_093542) do
+ActiveRecord::Schema.define(version: 2019_06_20_170940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,7 +70,10 @@ ActiveRecord::Schema.define(version: 2019_06_20_093542) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "bookmarks_count"
+    t.bigint "inspired_by_id"
+    t.integer "inspired_poems_count"
     t.index ["genre_id"], name: "index_poems_on_genre_id"
+    t.index ["inspired_by_id"], name: "index_poems_on_inspired_by_id"
     t.index ["mood_id"], name: "index_poems_on_mood_id"
     t.index ["user_id"], name: "index_poems_on_user_id"
   end
