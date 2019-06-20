@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_selection, only: [:home, :show, :edit, :update, :destroy, :my_poems, :liked_poems, :my_comments, :saved_poems]
-  before_action :require_login, only: [:home, :index, :show, :edit, :update, :destroy]
+  before_action :set_selection, only: [:home, :show, :edit, :update, :destroy, :my_poems, :liked_poems, :my_comments, :saved_poems, :settings]
+  before_action :require_login, except: [:new, :create]
   before_action :new_like, :new_bookmark, only: [:home, :my_poems, :liked_poems, :my_comments, :saved_poems]
+  before_action :current_user_only, except: [:show, :new, :create]
 
   def home
     @poems = Kaminari.paginate_array(@user.suggested_poems).page(page_params).per(12)
@@ -16,9 +17,16 @@ class UsersController < ApplicationController
   end
 
   def new
-    @page_title = "Register New User"
-    @user = User.new
-    @genres = Genre.all
+    if logged_in?
+      redirect_to home_path
+    else
+      @page_title = "Register New User"
+      @user = User.new
+      @genres = Genre.all
+      @submit_button_text = "Sign Up"
+      @cancel_button_text = "Cancel and Login"
+      @cancel_path = login_path
+    end
   end
 
   def create
@@ -40,7 +48,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
+  end
 
+  def settings
+    @page_title = "Change Account Settings"
+    @submit_button_text = "Update"
+    @cancel_button_text = "Cancel"
+    @cancel_path = @user
   end
 
   def my_poems
@@ -74,6 +88,12 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     else
       @user = User.find(current_user_id)
+    end
+  end
+
+  def current_user_only
+    if !@user.id == current_user_id
+      redirect_to @user
     end
   end
 

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/haiku_history', to: 'users#haiku_history'
   get '/random_haiku', to: 'poems#random_haiku'
   get '/profile', to: 'users#show'
+  get '/settings', to: 'users#settings'
   get '/my_haiku', to: 'users#my_poems'
   get '/my_liked_haiku', to: 'users#liked_poems'
   get '/my_comments', to: 'users#comments'
