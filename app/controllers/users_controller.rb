@@ -44,13 +44,24 @@ class UsersController < ApplicationController
   end
 
   def update
+    if !!@user.try(:authenticate, params[:user][:password])
+      params[:user].delete(:password)
+    end
+
     @user.update(user_params)
+    
     if @user.valid?
-      session[:user_id] = @user.id
-      redirect_to user_path(@user)
+      flash[:notices] = ["Your details have been updated"]
+
+      if request.referer[-9..-1] == "/settings"
+        redirect_to settings_path
+      else
+        redirect_to @user
+      end
     else
-      flash.now[:errors] = @user.errors.full_messages
-      redirect_to login_path
+      session[:return_to] ||= request.referer
+      flash[:errors] = @user.errors.full_messages
+      redirect_to session.delete(:return_to)
     end
   end
 
@@ -58,6 +69,7 @@ class UsersController < ApplicationController
   end
 
   def settings
+    # byebug
     @page_title = "Change Account Settings"
     @submit_button_text = "Update"
     @cancel_button_text = "Cancel"

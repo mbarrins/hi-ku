@@ -16,21 +16,21 @@
 <div class="container">
   <nav class="navbar is-transparent is-fixed-top">
 
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/home">
-      <%= image_tag "hiku_logo.png", width:"112", height:"28" %>
-    </a>
-  </div>
-  <div id="navMenuBasicExample" class="navbar-menu">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/home">
+        <%= image_tag "hiku_logo.png", width:"112", height:"28" %>
+      </a>
+    </div>
+    <div id="navMenuBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <div class="navbar-item is-hoverable">
+        <div class="navbar-item">
+          <%= link_to "Random", random_haiku_path, class:"navbar-item" %>
+        </div>
+        <div class="navbar-item">
           <%= link_to "Home", home_path, class:"navbar-item" %>
         </div>
-      </div>
-      <div class="navbar-item">
-        <a class="button is-medium is-success" href="<%= random_haiku_path %>"><span>Random</span></a>
-      </div>
-      </div>
+      </div>  
+    </div>
 
     <div id="navMenuTransparentExample" class="navbar-menu">
         <div class="navbar-end">
@@ -76,13 +76,12 @@
               <a class="navbar-item" href="<%= settings_path %>">
               Settings
               </a>
-              <a class="navbar-item" href="<%= logout_path %>">
-              Sign out
-              </a>
             </div>
           </div>
           <div class="navbar-item">
-            <a class="button is-medium is-warning" href="<%= logout_path %>"><span>Logout</span></a>
+            <a class="navbar-item"" href="<%= logout_path %>">
+              Logout
+              </a>
           </div>
         </div>
       </div>
