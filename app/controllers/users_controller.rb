@@ -112,11 +112,11 @@ class UsersController < ApplicationController
   end
 
   def current_user_only
-    if !@user.id == current_user_id
+    if @user.id != current_user_id
       redirect_to @user
     end
   end
-
+  
   def user_params
     params[:user][:password].try(&:strip!)
     params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation, :bio, :motto)
