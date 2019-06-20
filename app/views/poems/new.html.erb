@@ -52,8 +52,9 @@
         </div>
 
           <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
-
-          <%= f.submit %>
+        <div class="control">
+          <%= f.submit nil, class:'button is-link'%>
+        </div>
           <% end %>
 
         </div>

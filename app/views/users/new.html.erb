@@ -1,41 +1,64 @@
-
-
-<%= form_for @user do |f| %>
-  <div>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
+<br/>
+<section class="columns">
+  <div class="column is-one-third">
+    <%= form_for @user do |f| %>
+      <div class="field">
+        <%= f.label :first_name, class:"label" %>
+        <div class="control">
+          <%= f.text_field :first_name, class:"input", placeholder:"First Name" %>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :last_name, class:"label" %>
+        <div class="control">
+          <%= f.text_field :last_name, class:"input", placeholder:"Last Name" %>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :username, class:"label" %>
+        <div class="control has-icons-left">
+          <%= f.text_field :username, class:"input", placeholder:"username" %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :email, class:"label" %>
+        <div class="control has-icons-left">
+          <%= f.email_field :email, class:"input", placeholder:"Email" %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :password, class:"label" %>
+        <div class="control has-icons-left">
+          <%= f.password_field :password, class:"input", placeholder:"Password" %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :password_confirmation, class:"label" %>
+        <div class="control has-icons-left">
+          <%= f.password_field :password_confirmation, class:"input", placeholder:"Confirm Password" %>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <%= f.submit "Sign Up", class:'button' %>
+        </div>
+        <div class="control">
+          <%= link_to "Cancel and Login", login_path, class:'button' %>
+        </div>
+      </div>
+      
+    <% end %>
   </div>
-  <div>
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
-  </div>
-  <div>
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
-  </div>
-  <div>
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
-  <div>
-    <%= f.label :motto %>
-    <%= f.text_field :motto %>
-  </div>
-  <div>
-    <%= f.label :bio %>
-    <%= f.text_area :bio %>
-  </div>
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div>
-    <%= f.label :preferred_genre %>
-    <%= f.collection_select :genre_ids, @genres, :id, :name, { :multiple => true } %>
-  </div>
-  <%= f.submit %>
-<% end %>
+</section>
