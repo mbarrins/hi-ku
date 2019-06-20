@@ -15,11 +15,7 @@ Rails.application.routes.draw do
   get '/my_liked_haiku', to: 'users#liked_poems'
   get '/my_comments', to: 'users#comments'
   get '/my_saved_haiku', to: 'users#saved_poems'
-<<<<<<< HEAD
-  resources :users, only: [:edit, :show, :create, :update, :destroy]
-=======
   resources :users, :path => "authors", only: [:show, :edit, :create, :update, :destroy]
->>>>>>> 256e369e5f2b9bacb48fe2906e014e2904e6506b
 
   get 'poems/search', to: 'poems#search'
   resources :poems
