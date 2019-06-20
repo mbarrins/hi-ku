@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
   before_action :set_selection, except: [:new, :create, :index]
-  before_action :new_like, :new_bookmark, only: [:home, :my_poems, :liked_poems, :my_comments, :saved_poems]
   before_action :current_user_only, except: [:show, :new, :create]
+  before_action :new_like, :new_bookmark, only: [:home, :my_poems, :liked_poems, :my_comments, :saved_poems]
 
   def home
     @poems = Kaminari.paginate_array(@user.suggested_poems).page(page_params).per(12)
@@ -22,7 +22,6 @@ class UsersController < ApplicationController
     else
       @page_title = "Register New User"
       @user = User.new
-      @genres = Genre.all
       @submit_button_text = "Sign Up"
       @cancel_button_text = "Cancel and Login"
       @cancel_path = login_path
@@ -36,8 +35,7 @@ class UsersController < ApplicationController
       redirect_to home_path
     else
       flash.now[:errors] = @user.errors.full_messages
-      @genres = Genre.all
-      render signup_path
+      render 'new'
     end
   end
 
@@ -46,7 +44,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(current_user_id)
     @user.update(user_params)
     if @user.valid?
       session[:user_id] = @user.id
