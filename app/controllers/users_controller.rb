@@ -105,7 +105,11 @@ class UsersController < ApplicationController
 
   def set_selection
     if params[:id]
-      @user = User.find(params[:id])
+      @user = User.find(params[:id]) rescue nil
+      if !@user
+        flash[:errors] = ["That author could not be found, please try another page."]
+        redirect_to (request.referer || root_path)
+      end
     else
       @user = User.find(current_user_id)
     end
