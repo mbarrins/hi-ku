@@ -72,6 +72,7 @@ class PoemsController < ApplicationController
   end
 
   def edit
+    @poem ||= set_selection
     @page_title = "Edit Poem"
     if !!params[:confirm_delete]
       @confirm_delete = true
@@ -79,12 +80,12 @@ class PoemsController < ApplicationController
   end
 
   def update
-    @poem = Poem.new(poems_params)
+    @poem.update(poems_params)
     @word_errors = @poem.check_db
     @poem.valid?
     @genres = Genre.all
     @moods = Mood.all
-
+    
     if @word_errors.empty? && @poem.valid?
       @poem.save
       flash[:notices] = ["Your Haiku has been updated"]
@@ -127,6 +128,7 @@ class PoemsController < ApplicationController
       flash[:errors] = ["That poem could not be found, please try another page."]
       redirect_to (request.referer || root_path)
     end
+    @poem
   end
 
   def page_params

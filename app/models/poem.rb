@@ -12,7 +12,7 @@ class Poem < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :users_who_bookmarked, through: :bookmarks, source: :user
   has_many :inspired_poems, class_name: :Poem, foreign_key: :inspired_by_id
-  belongs_to :inspired_by, class_name: :Poem, counter_cache: :inspired_poems_count
+  belongs_to :inspired_by, class_name: :Poem, counter_cache: :inspired_poems_count, optional: true
   
   validates :title, presence: true
   validates :line_1, presence: true
@@ -44,19 +44,19 @@ class Poem < ApplicationRecord
       new_words = []
       words = self.pre_check
       words.each do |word|
-      word_db = Word.find_by(word: word)
-        if !word_db
-          new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
-          word_info = new_word.find{|k| k['word'] == word}
-            if word_info
-                Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
-            else
-                new_words << word
+        word_db = Word.find_by(word: word)
+          if !word_db
+            new_word = JSON.parse(RestClient.get("https://api.datamuse.com/words?sp=#{word}&md=s"))
+            word_info = new_word.find{|k| k['word'] == word}
+              if word_info
+                  Word.create(word: word, syllable: word_info["numSyllables"], user_id: 1)
+              else
+                  new_words << word
+            end
           end
         end
+          new_words
       end
-        new_words
-    end
 
     def line_1_equals?
       if self.line_number(self.line_1) != 5

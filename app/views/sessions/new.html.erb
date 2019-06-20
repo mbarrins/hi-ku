@@ -1,15 +1,28 @@
 
-
-<%= form_tag login_path do %>
-  <div>
-    <%= label_tag :username %>
-    <%= text_field_tag :username %>
+<br/>
+<div class="columns">
+  <%= form_tag login_path do %>
+    <div class="column">
+      <div class="field">
+        <%= label_tag :username, nil, class:'label' %>
+        <div class="control">
+          <%= text_field_tag :username, nil, class:'input' %>
+        </div>
+      </div>
+      <div class="field">
+        <%= label_tag :password, nil, class:'label' %>
+        <div class="control">
+        <%= password_field_tag :password, nil, class:'input' %>
+      </div>
+      <br/>
+      <div class="field">
+        <div class="control">
+          <%= submit_tag "Log In", class:"button is-link" %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </div>
-  <%= submit_tag "Log In" %>
+</div>
 
   <br>
   <br>

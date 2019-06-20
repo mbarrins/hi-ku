@@ -2,16 +2,31 @@ class WordsController < ApplicationController
   before_action :require_login
   
   def create
-    words_params.each do |word, syllables|
-      Word.create(word: word, syllable: syllables, user_id: current_user_id)
+    if params[:commit] != "Cancel"
+      words_params.each do |word, syllables|
+        Word.create(word: word, syllable: syllables, user_id: current_user_id)
+      end
     end
-    @poem = Poem.new(poems_params)
+    
+    if !params[:poem][:id]
+      @poem = Poem.new(poems_params)
+    else
+      @poem = Poem.find(params[:poem][:id])
+      @poem.update(poems_params)
+    end
+
     if !@poem.valid?
       flash[:errors] = @poem.errors.full_messages
     end
+
     @genres = Genre.all
     @moods = Mood.all
-    render new_poem_path
+
+    if !params[:poem][:id]
+      render new_poem_path
+    else
+      render "poems/edit"
+    end
   end
 
   private
