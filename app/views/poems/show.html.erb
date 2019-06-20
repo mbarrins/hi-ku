@@ -49,6 +49,13 @@
             <% end %>
           <% end %>
           </p>
+
+          <p class="control">
+          <% if @poem.user_id == current_user_id %>
+            <%= link_to "Edit this poem", edit_poem_path(@poem),  class:'button has-text-centered' %>
+          <% end %>
+          </p>
+
           </div>
 
 

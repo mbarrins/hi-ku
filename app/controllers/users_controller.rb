@@ -34,9 +34,19 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @page_title = "Edit Your Profile"
   end
 
   def update
+    @user = User.find(current_user_id)
+    @user.update(user_params)
+    if @user.valid?
+      session[:user_id] = @user.id
+      redirect_to user_path(@user)
+    else
+      flash.now[:errors] = @user.errors.full_messages
+      redirect_to login_path
+    end
   end
 
   def destroy

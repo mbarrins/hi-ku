@@ -17,6 +17,17 @@
         <%=link_to @poem2.line_2, @poem2 %> <br>
         <%=link_to @poem3.line_3, @poem3 %>
       </h2>
+
+      <br>
+
+      <h2 class="subtitle has-text-centered">
+        <p> by <%=link_to @poem1.author.full_name, @poem1.author %>, <%=link_to @poem2.author.full_name, @poem2.author %> and <%=link_to @poem3.author.full_name, @poem3.author %> </p>
+      </h2>
+
+
+
+
+
     </div>
   </div>
 </section>

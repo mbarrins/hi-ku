@@ -27,7 +27,10 @@
           <%= link_to "Home", home_path, class:"navbar-item" %>
         </div>
       </div>
-    </div>
+      <div class="navbar-item">
+        <a class="button is-medium is-success" href="<%= random_haiku_path %>"><span>Random</span></a>
+      </div>
+      </div>
 
     <div id="navMenuTransparentExample" class="navbar-menu">
         <div class="navbar-end">
@@ -47,9 +50,6 @@
               </a>
               <a class="navbar-item" href="<%= haiku_history_path %>">
                 Haiku History
-              </a>
-              <a class="navbar-item" href="<%= random_haiku_path %>">
-                Random Haiku
               </a>
             </div>
           </div>

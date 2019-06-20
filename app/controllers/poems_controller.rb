@@ -72,13 +72,33 @@ class PoemsController < ApplicationController
   end
 
   def edit
+    @page_title = "Edit Poem"
   end
 
   def update
+    @poem = Poem.new(poems_params)
+    @word_errors = @poem.check_db
+    @poem.valid?
+    @genres = Genre.all
+    @moods = Mood.all
+
+    if @word_errors.empty? && @poem.valid?
+      @poem.save
+      redirect_to @poem
+    elsif !@word_errors.empty?
+      flash.now[:errors] = @poem.errors.full_messages
+      flash.now[:errors] << "Missing syllables for word(s), please add below."
+      render new_poem_path
+    else
+      @word_errors = nil
+      flash.now[:errors] = @poem.errors.full_messages
+      render new_poem_path
+    end
   end
 
   def destroy
-
+    @poem.destroy
+    redirect_to poems_path
   end
 
   def search

@@ -8,6 +8,15 @@
         <article class="tile is-child notification is-danger">
           <p class="title"><%=@user.first_name %> <%= @user.last_name %></p>
           <p> <%= @user.motto %> </p>
+
+          <br>
+
+          <p class="control">
+          <% if @user.id == current_user_id %>
+            <%= link_to "Edit Your Profile", edit_user_path(@user),  class:'button has-text-centered is-small' %>
+          <% end %>
+          </p>
+
         </article>
         <article class="tile is-child notification is-warning">
           <p class="title is-4">All Poems by this Author</p>
