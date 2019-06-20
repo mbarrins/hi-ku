@@ -1,68 +1,68 @@
-<br>
-<br>
 
-
+<br>
+ <%= form_for @user do |f| %>
 <div class="tile is-ancestor">
-  <div class="tile is-verticle">
-    <%= form_for @user do |f| %>
-      <div class="tile">
-          <div class="tile is-parent is-vertical">
-            <article class="tile is-child notification is-danger">
-              <div class="field is-horizontal">
-              <%= f.label :first_name, class:'field-label' %>
-              <div class="control has-icons-right">
-              <%= f.text_field :first_name, :class => "field-body is-warning input is-rounded", :placeholder => "First Name", required: true %>
-               <span class="icon is-small is-right">
-               <i class="fas fa-user-alt"></i>
-               </span>
-               </div>
-               </div>
+  <div class="tile is-vertical">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child notification is-danger">
+          <p class="title"><%=@user.first_name %> <%= @user.last_name %></p>
+          <p>
+            <div class="field">
+                <div class="control has-icons-right">
+                  <%= f.text_field :motto, :class => "input is-success", :placeholder => "Motto" %>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-pen-nib"></i>
+                  </span>
+                </div>
+              </div>
+          </p>
 
-              <div class="field is-horizontal">
-              <%= f.label :last_name, class:'field-label' %>
-              <div class="control has-icons-right">
-              <%= f.text_field :last_name, :class => "field-body is-danger input is-rounded", :placeholder => "Last Name", required: true %>
-              <span class="icon is-small is-right">
-              <i class="fas fa-user-alt"></i>
-              </span>
-              </div>
-              </div>
+          <br>
+          
 
-              <div class="field is-horizontal">
-              <%= f.label :motto, class:'field-label' %>
-              <div class="control has-icons-right">
-              <%= f.text_field :motto, :class => "field-body is-success input is-rounded", :placeholder => "Motto", required: true %>
-              <span class="icon is-small is-right">
-              <i class="fas fa-pen-nib"></i>
-              </span>
-              </div>
-              </div>
-            </article>
+        </article>
+        <article class="tile is-child notification is-warning">
+          <p class="title is-4">All Poems by this Author</p>
 
-            <article class="tile is-child notification is-warning">
-                <div class="title is-4">All Poems by this Author </div>
-                <% @user.poems.each do |poem| %>
-                <p class="is-horizontal"> <%= link_to poem.title, poem %> for a <%=link_to poem.mood.name, poem.mood %> mood, liked by <%= poem.likes_count %> other users!<br></p>
-                <% end %>
-            </article>
+          <% if @user.poems.empty? %>
+
+          <%= link_to "No Haikus yet! Write your first!", new_poem_path %>
+
+          <% else %>
+
+          <% @user.poems.each do |poem| %>
+          <p> <%= link_to poem.title, poem %> for a <%=link_to poem.mood.name, poem.mood %> mood, liked by <%= poem.likes_count %> other users!<br></p>
+          <% end %>
+
+          <br>
+          <br>
+
+          <%= link_to "Write a new Haiku!", new_poem_path %>
+          <% end %>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child notification is-info">
+          <p class="title">Bio</p>
+          <p>
+          <div class="field">
+            <div class="control">
+              <%= f.text_area :bio, :class => "textarea is-info", :placeholder => "Tell us a little about yourself!", rows: 8 %>
+            </div>
           </div>
-          <div class="tile is-parent">
-            <article class="tile is-child notification is-info">
-              <div class="field">
-              <%= f.label :bio, class:'field-label' %>
-              <div class="control">
-              <%= f.text_area :bio, :class => "textarea is-info", :placeholder => "Tell us a little about yourself!", :rows => "10", required: true %>
-              <span class="icon is-small is-right">
-              <i class="fas fa-edit"></i>
-              </span>
-              <%= f.submit %>
-              <% end %>
-
-              <%= button_to "Delete your Profile", @user, :method => :delete, data: {confirm:"Are You Sure?!"} %>
-              </div>
-              </div>
-            </article>
+          </p>
+          <div class="field is-grouped is-grouped-centered">
+          <p class="control">
+            <%= f.submit "Save Changes", class:'button' %>
+          </p>
+          <p class="control">
+            <%= link_to "Cancel Changes", @user, class:'button' %>
+          </p>
           </div>
+        </article>
       </div>
     </div>
   </div>
+</div>
+<% end %>

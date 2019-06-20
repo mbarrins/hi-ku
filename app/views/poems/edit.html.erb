@@ -55,14 +55,23 @@
         <div>
 
           <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
-
-          <%= f.submit %>
+          <div class='field is-grouped is-grouped-centered'>
+            <p class='control'>
+              <%= f.submit nil, class:'button is-outlined' %>
+            </p>
+            <p class='control'>
+              <%= link_to "Cancel", @poem, class:'button is-outlined' %>
+            </p>
+            <p class='control'>
+              <%= link_to "Delete this Poem", edit_poem_path(@poem, confirm_delete: true), class:'button is-danger is-outlined' %>
+            </p>
+          </div>
           <% end %>
 
           <br>
           <br>
 
-          <%= button_to "Delete this Poem", @poem, :method => :delete, data: {confirm:"Are You Sure?!"} %>
+          
 
         </div>
 
@@ -92,6 +101,29 @@
               <%= hidden_field_tag :'poem[user_id]', "#{current_user_id}" %>
               <%= submit_tag "Add syllables"%>
             <% end %>
+        <% end %>
+        
+        <% if @confirm_delete %>
+          <div class='notification is-danger'>
+            <p class='subtitle has-text-centered'>
+              Are you sure you want to delete this poem?
+            </p>
+            <p class='subtitle has-text-centered'>
+              You will not be able to undo this action.
+            </p>
+            <br/>
+            <div class='field is-grouped is-grouped-centered'>
+              <p class='control'>
+                <%= button_to "I'm sure, Delete the Haiku.", @poem, :method => :delete, class:'button is-warning' %>
+              </p>
+              <p class='control'>
+                <%= link_to "", @poem %>
+              </p>
+              <p class='control'>
+              <%= link_to "Cancel and keep my Haiku", @poem, class:'button is-outlined' %>
+              </p>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>
