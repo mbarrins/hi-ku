@@ -1,0 +1,20 @@
+<% @comments.each do |comment| %>
+  <% if @edit_comment == comment %>
+    <%= render 'comments/form', object: @comment = @edit_comment%>
+  <% else %>
+  <p>
+    <%= comment.content %>
+  </p>
+  <p class="is-size-7 has-text-white" >.</p>
+  <div>
+    <p class="is-size-7" >
+      by <%= comment.user.id = current_user_id ? 'you' : comment.user.full_name %> on 
+      <%= comment.updated_date %>
+      <% if comment.user.id = current_user_id %>
+        <%= link_to "Edit Comment", request.params.merge(edit_comment: comment.id), class:'button is-pulled-right is-small' %>
+      <% end %>
+    </p>
+  </div>
+  <% end %>
+  <hr>
+<% end %>

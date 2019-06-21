@@ -1,8 +1,23 @@
+
 <%= form_for @comment do |f| %>
   <p class="field control has-text-right">
     <%= f.text_area :content, placeholder: "Comment", class: "field-body input is-medium is-info" %>
   </p>
+  <% if @comment.persisted? %>
+    <%= f.hidden_field :id, value: "#{@comment.id}" %>
+  <% end %>
   <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
-  <%= f.hidden_field :poem_id, value: "#{@poem.id}" %>
-  <p class="has-text-right"><%= f.submit "Add new comment", class:"button is-2" %></p>
+  <%= f.hidden_field :poem_id, value: "#{@poem ? @poem.id : @comment.poem_id}" %>
+  <div class="field is-grouped is-grouped-right">
+    <p class="control">
+      <%= f.submit nil, class:"button is-small" %>
+    </p>
 <% end %>
+    <% if @comment.persisted? %>
+      <p class='control'>
+        <%= form_for @comment, method: :delete do %>
+          <%= submit_tag "Delete Comment", class:'button is-small is-danger is-outlined' %>
+        <% end %>
+      </p>
+    <% end %>
+  </div>

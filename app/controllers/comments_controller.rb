@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_selection, only: [:edit, :update, :destroy]
+  before_action :set_selection, only: [:update, :destroy]
   before_action :require_login
   
   def new
@@ -12,16 +12,21 @@ class CommentsController < ApplicationController
     redirect_to session.delete(:return_to)
   end
 
-  def edit
-
-  end
-
   def update
-
+    @comment.update(comment_params)
+    if @comment.valid?
+      session[:return_to] ||= request.referer.split("?").first
+    else
+      session[:return_to] ||= request.referer
+    end
+    redirect_to session.delete(:return_to)
+    
   end
 
   def destroy
-
+    session[:return_to] ||= request.referer.split("?").first
+    Comment.find(params[:id]).destroy
+    redirect_to session.delete(:return_to)
   end
 
   private

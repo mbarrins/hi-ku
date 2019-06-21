@@ -1,23 +1,23 @@
 <br />
 <% @poems.each do |poem| %>
-<div class = 'columns' >
-        <div class = 'column is-2' >
-        </div>
-        <div class = 'column is-7' >
-  <p class='subtitle'>Your <%= poem.user_comments(current_user_id).count > 1 ? 'comments' : 'comment'%> on <%= link_to poem.title, poem %> by <%= link_to poem.author.full_name, poem.author %></p>
+  <div class = 'columns' >
+    <div class = 'column is-2' >
+    </div>
+    <div class = 'column is-7' >
+      <p class='subtitle'>Your <%= poem.user_comments(current_user_id).count > 1 ? 'comments' : 'comment'%> on <%= link_to poem.title, poem %> by <%= link_to poem.author.full_name, poem.author %></p>
+    </div>
   </div>
-  </div>
-    <% poem.user_comments(current_user_id).each do |comment| %>
-      <div class = 'columns' >
-        <div class = 'column is-2' >
-        </div>
-        <div class = 'column is-2' >
-          On <%= comment.updated_date %>: 
-        </div>
-        <div class = 'column is-5' >
-          <%= comment.content %>
+
+  <% @comments = poem.user_comments(current_user_id) %>
+  <% if !!@comments %>
+    <div class = 'columns' >
+      <div class = 'column is-2' >
+      </div>
+      <div class = 'column is-7' >
+        <div class='box'>
+          <%= render 'comments/show' %> 
         </div>
       </div>
-    <% end %>
-    <hr />
+    </div>
+  <% end %>
 <% end %>

@@ -95,8 +95,11 @@ class UsersController < ApplicationController
 
   def comments
     @page_title = "My Comments"
-    #@comments = @user.comments.order(updated_at: :desc).page(page_params).per(12)
     @poems = @user.commented_poems.order(:title).page(page_params).per(12)
+    
+    if params[:edit_comment]
+      @edit_comment = Comment.find(params[:edit_comment])
+    end
   end
 
   def saved_poems
