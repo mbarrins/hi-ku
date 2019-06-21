@@ -5,13 +5,13 @@
   <div class="column is-two-fifths">
     <div class="tile is-ancestor">
       <div class="tile is-12 is-vertical is-parent">
-        <div class="tile is-child notification is-warning">
+        <div class="tile is-child notification has-text-black is-size-4 has-text-centered is-primary">
           <p>
-            <p><%= @poem.line_1 %><p>
+            <p class="is-2"><strong><%= @poem.line_1 %><p>
             <p><%= @poem.line_2 %><p>
-            <p><%= @poem.line_3 %><p>
+            <p><%= @poem.line_3 %></strong><p>
         </div>
-        <div class="tile is-child notification is-danger">
+        <div class="tile is-child notification has-text-black is-primary>
           <p>by <%= link_to @poem.author.full_name, @poem.author %></p>
           <p>a <%= link_to @poem.genre.name, @poem.genre %> haiku for a
           <%= link_to @poem.mood.name, @poem.mood %> mood</p>
