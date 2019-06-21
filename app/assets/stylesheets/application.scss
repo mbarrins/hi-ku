@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+$primary: #EBB9E7;
+// $link: 'blue';
+$info: #EBB9E7;
+$success: #ebb9e7;
+// $warning: 'yellow';
+// $danger: 'red';
+// $dark: 'grey-darker';
+// $text: 'grey-dark';
+//
+$family-primary: 'Helvetica', 'Arial', sans-serif;
+
+
+
+
+@import "bulma";
