@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def home
     @poems = Kaminari.paginate_array(@user.suggested_poems).page(page_params).per(12)
+    @page_title = "Poetry for the people"
   end
 
   def index
@@ -14,6 +15,7 @@ class UsersController < ApplicationController
 
   def show
     @page_title = "Author Profile"
+    @poems = @user.poems.page(page_params).per(5)
   end
 
   def new

@@ -17,46 +17,46 @@
           <%= link_to @poem.mood.name, @poem.mood %> mood</p>
         </div>
 
-        <div class="field is-grouped">
+        <div class="field is-grouped is-grouped-centered">
           <div class="control">
           <% if @poem.user_id == current_user_id %>
-            <%= link_to "#{@poem.likes_count} Likes", @poem,  class:'button has-text-centered' %>
+            <%= link_to "#{@poem.likes_count || 0} Likes", @poem,  class:'button has-text-centered is-small' %>
           <% elsif @poem.liked_by_session_user?(current_user_id) %>
             <%= form_for @poem.user_like(current_user_id), method: :delete do %>
-              <%= submit_tag "Liked", class:'button is-primary' %>
+              <%= submit_tag "Liked", class:'button is-primary is-small' %>
             <% end %>
           <% else %>
             <%= form_for @like do |f| %>
               <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
               <%= f.hidden_field :poem_id, value: "#{@poem.id}" %>
-              <%= f.submit "Like", class:'button' %>
+              <%= f.submit "Like", class:'button is-small' %>
             <% end %>
           <% end %>
           </div>
 
           <div class="control">
           <% if @poem.user_id == current_user_id %>
-            <%= link_to "#{@poem.bookmarks_count} Saves", @poem,  class:'button has-text-centered' %>
+            <%= link_to "#{@poem.bookmarks_count || 0} Saves", @poem,  class:'button has-text-centered is-small' %>
           <% elsif @poem.saved_by_session_user?(current_user_id) %>
             <%= form_for @poem.user_bookmark(current_user_id), method: :delete do %>
-              <%= submit_tag "Saved", class:'button is-primary' %>
+              <%= submit_tag "Saved", class:'button is-primary is-small' %>
             <% end %>
           <% else %>
             <%= form_for @bookmark do |f| %>
               <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
               <%= f.hidden_field :poem_id, value: "#{@poem.id}" %>
-              <%= f.submit "Save", class:'button' %>
+              <%= f.submit "Save", class:'button is-small' %>
             <% end %>
           <% end %>
           </div>
 
           <div class="control">
-            <%= link_to "Feeling Inspired?", new_poem_path(id:@poem.id),  class:'button has-text-centered' %>
+            <%= link_to "Feeling Inspired?", new_poem_path(id:@poem.id),  class:'button has-text-centered is-small' %>
           </div>
 
           <div class="control">
             <% if @poem.user_id == current_user_id %>
-              <%= link_to "Edit this poem", edit_poem_path(@poem),  class:'button has-text-centered' %>
+              <%= link_to "Edit this poem", edit_poem_path(@poem),  class:'button has-text-centered is-small' %>
             <% end %>
           </div>
 
