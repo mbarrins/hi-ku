@@ -35,8 +35,16 @@ class PoemsController < ApplicationController
   end
 
   def new
-    @page_title = "New Haiku"
-    @poem = Poem.new
+    if !!params[:id]
+      @page_title = "New Inspired Haiku"
+      initial_poem = Poem.find(params[:id])
+      @poem = Poem.initial_poem.dup
+      @poem.inspired_by = initial_poem
+    else
+      @page_title = "New Haiku"
+      @poem = Poem.new
+    end
+
     @genres = Genre.all
     @moods = Mood.all
   end
@@ -50,7 +58,12 @@ class PoemsController < ApplicationController
   end
 
   def create
-    @page_title = "New Haiku"
+    if !!params[:poem][:inspired_by]
+      @page_title = "New Inspired Haiku"  
+    else
+      @page_title = "New Haiku"
+    end
+
     @poem = Poem.new(poems_params)
     @word_errors = @poem.check_db
     @poem.valid?
