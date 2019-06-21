@@ -13,7 +13,7 @@ class Poem < ApplicationRecord
   has_many :users_who_bookmarked, through: :bookmarks, source: :user
   has_many :inspired_poems, class_name: :Poem, foreign_key: :inspired_by_id
   belongs_to :inspired_by, class_name: :Poem, counter_cache: :inspired_poems_count, optional: true
-  
+
   validates :title, presence: true
   validates :line_1, presence: true
   validates :line_2, presence: true
@@ -57,6 +57,21 @@ class Poem < ApplicationRecord
         end
           new_words
       end
+
+
+      def poem_inspire
+        new_words = []
+        words = self.pre_check
+        words.each do |word|
+        word_alt = JSON.parse(RestClient.get("https://api.datamuse.com/words?ml=#{word}"))
+        new_word_info = word_alt.sample
+        new_word = new_word_info["word"]
+        new_words << new_word
+        end
+        new_words
+      end
+
+
 
     def line_1_equals?
       if self.line_number(self.line_1) != 5
