@@ -82,11 +82,21 @@
     </div>
   </div>
   <div class="column">
-    <div class="tile is-parent">
-      <div class="tile is-child box">
-        <p class="title">Other Poems from this Author</p>
-          <%= render 'poems/each_poem' %>
+    <% if @author_poems.present? %>
+      <div class="tile is-parent">
+        <div class="tile is-child box">
+          <p class="title">Other Haiku from this Author</p>
+            <%= render 'poems/each_poem', object: @poems = @author_poems %>
+        </div>
       </div>
-    </div>
+    <% end %>
+    <% if @inspired_poems.present? %>
+      <div class="tile is-parent">
+        <div class="tile is-child box">
+          <p class="title">Haiku inspired by <strong><%=@poem.title%></strong></p>
+            <%= render 'poems/each_poem', object: @poems = @inspired_poems %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
