@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'poems/search', to: 'poems#search'
   resources :poems
 
-  resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
+  resources :comments, only: [:show, :new, :create, :update, :destroy]
   resources :likes, only: [:create, :destroy]
   resources :bookmarks, only: [:create, :destroy]
   resources :words, only: [:create]

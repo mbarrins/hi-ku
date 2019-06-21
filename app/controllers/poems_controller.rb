@@ -32,6 +32,10 @@ class PoemsController < ApplicationController
     @page_title = @poem.title
     @comments = @poem.comments.order(created_at: :desc)
     @poems = Kaminari.paginate_array(@poem.author.poems).page(page_params).per(6)
+
+    if params[:edit_comment]
+      @edit_comment = Comment.find(params[:edit_comment])
+    end
   end
 
   def new

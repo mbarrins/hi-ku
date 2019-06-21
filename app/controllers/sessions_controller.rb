@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: params[:username]).try(:authenticate, params[:password])
     if !!user
       session[:user_id] = user.id
-      redirect_to welcome_path
+      redirect_to home_path
     else
       (flash[:errors] ||= []) << "The username and/or password are not correct."
       redirect_to signup_path
