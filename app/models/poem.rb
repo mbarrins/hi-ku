@@ -58,19 +58,44 @@ class Poem < ApplicationRecord
           new_words
       end
 
+      def line_inspire(line)
+        new_line = []
 
-      def poem_inspire
-        new_words = []
-        words = self.pre_check
+        words = self.line_split(line)
         words.each do |word|
         word_alt = JSON.parse(RestClient.get("https://api.datamuse.com/words?ml=#{word}"))
         new_word_info = word_alt.sample
-        new_word = new_word_info["word"]
-        new_words << new_word
+        if new_word_info
+          new_word = new_word_info["word"]
+          new_line << new_word
+        else
+          new_line << word
+          end
         end
-        new_words
+        new_line
       end
 
+      def inspired
+        self.line_1 = self.line_1_inspire
+        self.line_2 = self.line_2_inspire
+        self.line_3 = self.line_3_inspire
+      end
+
+      def line_1_inspire
+        line = self.line_inspire(self.line_1)
+        line.join(" ")
+      end
+
+
+      def line_2_inspire
+        line = self.line_inspire(self.line_2)
+        line.join(" ")
+      end
+
+      def line_3_inspire
+        line = self.line_inspire(self.line_1)
+        line.join(" ")
+      end
 
 
     def line_1_equals?

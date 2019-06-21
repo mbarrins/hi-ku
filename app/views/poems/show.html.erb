@@ -50,6 +50,11 @@
           <% end %>
           </p>
 
+
+          <p class="control">
+            <%= link_to "Inspired?", new_poem_path(id:@poem.id),  class:'button has-text-centered' %>
+          </p>
+
           <p class="control">
           <% if @poem.user_id == current_user_id %>
             <%= link_to "Edit this poem", edit_poem_path(@poem),  class:'button has-text-centered' %>

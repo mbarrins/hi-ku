@@ -38,15 +38,16 @@ class PoemsController < ApplicationController
     if !!params[:id]
       @page_title = "New Inspired Haiku"
       initial_poem = Poem.find(params[:id])
-      @poem = Poem.initial_poem.dup
+      @poem = initial_poem.dup
+      @poem.inspired
       @poem.inspired_by = initial_poem
     else
       @page_title = "New Haiku"
       @poem = Poem.new
     end
 
-    @genres = Genre.all
-    @moods = Mood.all
+      @genres = Genre.all
+      @moods = Mood.all
   end
 
   def random_haiku
@@ -54,12 +55,11 @@ class PoemsController < ApplicationController
     @poem1 = Poem.all.sample
     @poem2 = Poem.all.sample
     @poem3 = Poem.all.sample
-
   end
 
   def create
     if !!params[:poem][:inspired_by]
-      @page_title = "New Inspired Haiku"  
+      @page_title = "New Inspired Haiku"
     else
       @page_title = "New Haiku"
     end
@@ -98,7 +98,7 @@ class PoemsController < ApplicationController
     @poem.valid?
     @genres = Genre.all
     @moods = Mood.all
-    
+
     if @word_errors.empty? && @poem.valid?
       @poem.save
       flash[:notices] = ["Your Haiku has been updated"]
@@ -132,7 +132,7 @@ class PoemsController < ApplicationController
   private
 
   def poems_params
-    params.require(:poem).permit(:title, :line_1, :line_2, :line_3, :genre_id, :mood_id, :user_id)
+    params.require(:poem).permit(:title, :line_1, :line_2, :line_3, :genre_id, :mood_id, :user_id, :inspired_by_id)
   end
 
   def set_selection

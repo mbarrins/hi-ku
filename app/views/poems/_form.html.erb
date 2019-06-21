@@ -90,6 +90,11 @@
 
       <%= f.hidden_field :user_id, value: "#{current_user_id}" %>
 
+      <% if @poem.inspired_by %>
+
+      <%= f.hidden_field :inspired_by_id, value: "#{@poem.inspired_by_id}" %>
+      <% end %>
+
       <div class="field is-grouped is-grouped-centered">
         <p class="control">
           <%= f.submit nil, class:'button is-outlined' %>
@@ -165,7 +170,7 @@
       <% end %>
     </div>
     </div>
-        
+
         <% if @confirm_delete %>
           <div class='notification is-danger'>
             <p class='subtitle has-text-centered'>
