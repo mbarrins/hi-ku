@@ -18,7 +18,7 @@
         </div>
 
         <div class="field is-grouped">
-          <p class="control">
+          <div class="control">
           <% if @poem.user_id == current_user_id %>
             <%= link_to "#{@poem.likes_count} Likes", @poem,  class:'button has-text-centered' %>
           <% elsif @poem.liked_by_session_user?(current_user_id) %>
@@ -32,9 +32,9 @@
               <%= f.submit "Like", class:'button' %>
             <% end %>
           <% end %>
-          </p>
+          </div>
 
-          <p class="control">
+          <div class="control">
           <% if @poem.user_id == current_user_id %>
             <%= link_to "#{@poem.bookmarks_count} Saves", @poem,  class:'button has-text-centered' %>
           <% elsif @poem.saved_by_session_user?(current_user_id) %>
@@ -48,20 +48,19 @@
               <%= f.submit "Save", class:'button' %>
             <% end %>
           <% end %>
-          </p>
-
-
-          <p class="control">
-            <%= link_to "Inspired?", new_poem_path(id:@poem.id),  class:'button has-text-centered' %>
-          </p>
-
-          <p class="control">
-          <% if @poem.user_id == current_user_id %>
-            <%= link_to "Edit this poem", edit_poem_path(@poem),  class:'button has-text-centered' %>
-          <% end %>
-          </p>
-
           </div>
+
+          <div class="control">
+            <%= link_to "Feeling Inspired?", new_poem_path(id:@poem.id),  class:'button has-text-centered' %>
+          </div>
+
+          <div class="control">
+            <% if @poem.user_id == current_user_id %>
+              <%= link_to "Edit this poem", edit_poem_path(@poem),  class:'button has-text-centered' %>
+            <% end %>
+          </div>
+
+        </div>
 
 
         <div class="tile is-child ">
