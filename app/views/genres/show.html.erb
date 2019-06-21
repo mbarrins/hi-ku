@@ -10,7 +10,7 @@
 
 
     <div class="tile is-parent">
-      <article class="tile is-child notification is-info">
+      <article class="tile is-child notification is-primary">
 
         <p class="title">Top <%=@genre.name %> poems!</p>
 
@@ -24,7 +24,7 @@
       </div>
 
       <div class="tile is-parent">
-        <article class="tile is-child is notification is-warning">
+        <article class="tile is-child is notification has-text-black is-info">
               <p class="title">A <%=@genre.name %> poem just for you!</p>
 
               <p><%= link_to @poem_1.line_1, @poem_1%></p>

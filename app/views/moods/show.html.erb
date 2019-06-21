@@ -8,7 +8,7 @@
 
 
     <div class="tile is-parent">
-      <article class="tile is-child notification is-info">
+      <article class="tile is-child notification is-primary">
             <% if !@mood.top_poems(5).empty? %>
             <p class="title is-3">Top Poems for a <%=@mood.name %> mood!</p>
             <% @mood.top_poems(5).each do |poem| %>
@@ -19,7 +19,7 @@
       </div>
 
       <div class="tile is-parent">
-        <article class="tile is-child is notification is-warning">
+        <article class="tile is-child is notification has-text-black is-info">
               <p class="title">A <%=@mood.name %> poem just for you!</p>
 
               <p><%=link_to @poem_1.line_1, @poem_1%></p>
