@@ -11,7 +11,7 @@
             <p><%= @poem.line_2 %><p>
             <p><%= @poem.line_3 %></strong><p>
         </div>
-        <div class="tile is-child notification has-text-black is-primary>
+        <div class="tile is-child notification has-text-black is-primary">
           <p>by <%= link_to @poem.author.full_name, @poem.author %></p>
           <p>a <%= link_to @poem.genre.name, @poem.genre %> haiku for a
           <%= link_to @poem.mood.name, @poem.mood %> mood</p>
