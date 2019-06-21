@@ -68,7 +68,54 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.destroy(@user.id)
+    @user.poems.each do |poem|
+      if poem.inspired_poems.empty?
+        Poem.destroy(poem.id)
+      end
+    end
+
+    @user.poems.each do |poem|
+      if poem.inspired_poems.empty?
+        Poem.destroy(poem.id)
+      else
+        poem.comments.destroy_all
+        poem.likes.destroy_all
+        poem.bookmarks.destroy_all
+
+        poem.update(
+          title: 'Deleted', 
+          line_1: 'This Haiku has been', 
+          line_2: 'deleted. Apologies',
+          line_3: 'for it did not last.',
+          likes_count: nil,
+          comments_count: nil,
+          bookmarks_count: nil
+          )
+      end
+    end
+
+    if @user.poems.empty?
+      User.destroy(@user.id)
+    else
+      @user.likes.destroy_all
+      @user.comments.destroy_all
+      @user.bookmarks.destroy_all
+        
+      @user.update(
+        username: User.where("username LIKE 'deleted%'").map{|user| user.username}.uniq.max.succ, 
+        first_name: 'deleted', 
+        last_name: 'deleted', 
+        email: User.where("username LIKE 'deleted%'").map{|user| user.username}.uniq.max.succ,
+        likes_count: nil, 
+        comments_count: nil, 
+        bookmarks_count: nil, 
+        poems_count: nil,
+        motto: nil,
+        bio: nil,
+        password: Faker::Internet.password(20, 20, true, true)
+      )
+    end
+
     session.delete :user_id
     flash[:notices] = ["Your Profile has been deleted"]
     redirect_to signup_path
