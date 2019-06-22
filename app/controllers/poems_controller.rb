@@ -121,7 +121,23 @@ class PoemsController < ApplicationController
   end
 
   def destroy
-    @poem.destroy
+    if @poem.inspired_poems.empty?
+      @poem.destroy
+    else
+      @poem.comments.destroy_all
+      @poem.likes.destroy_all
+      @poem.bookmarks.destroy_all
+
+      @poem.update(
+        title: 'Deleted', 
+        line_1: 'This Haiku has been', 
+        line_2: 'deleted. Apologies',
+        line_3: 'for it did not last.',
+        likes_count: nil,
+        comments_count: nil,
+        bookmarks_count: nil
+        )
+    end
     flash[:notices] = ["Haiku has been deleted"]
     redirect_to my_haiku_path
   end
