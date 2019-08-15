@@ -1,24 +1,14 @@
-# README
+# HI!KU
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Haiku sharing site built with Ruby-on-Rails. You can write haiku to share, or read, like, and comment on others' haiku.
 
-Things you may want to cover:
 
-* Ruby version
+Demo
 
-* System dependencies
+You can see a running version of the application at [https://hi-ku.herokuapp.com](https://hi-ku.herokuapp.com).
 
-* Configuration
 
-* Database creation
+Authors
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[Jack Hawkins](https://github.com/JackH17)   
+[Maija Barrins](https://github.com/mbarrins)
